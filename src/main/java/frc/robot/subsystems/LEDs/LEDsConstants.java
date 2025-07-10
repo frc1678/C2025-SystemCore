@@ -1,7 +1,8 @@
 package frc.robot.subsystems.LEDs;
 
-import com.ctre.phoenix.led.CANdle.LEDStripType;
-import com.ctre.phoenix.led.CANdle.VBatOutputMode;
+import com.ctre.phoenix6.signals.StripTypeValue;
+import com.ctre.phoenix6.signals.VBatOutputModeValue;
+
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Time;
 import frc.lib.io.LightsIO;
@@ -28,8 +29,8 @@ public class LEDsConstants {
 		config.id = Ports.CANDLE.id;
 		config.bus = Ports.CANDLE.bus;
 		config.ledCount = candleLEDs + stripLEDs;
-		config.configuration.vBatOutputMode = VBatOutputMode.On;
-		config.configuration.stripType = LEDStripType.GRB;
+		config.configuration.CANdleFeatures.VBatOutputMode = VBatOutputModeValue.On;
+		config.configuration.LED.StripType = StripTypeValue.GRB;
 		return config;
 	}
 
