@@ -1,16 +1,16 @@
 package frc.robot.trajectories;
 
-import com.ctre.phoenix.time.StopWatch;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.lib.util.Stopwatch;
 import frc.robot.subsystems.detection.Detection;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.DriveConstants;
 import frc.robot.subsystems.superstructure.Superstructure;
 
 public class DriveToCoralCommand extends Command {
-	private StopWatch timer = new StopWatch();
+	private Stopwatch timer = new Stopwatch();
 	Pose2d target = null;
 	boolean notSeenCoral;
 
@@ -45,6 +45,6 @@ public class DriveToCoralCommand extends Command {
 
 	@Override
 	public boolean isFinished() {
-		return timer.getDuration() > 3.5 || Superstructure.mInstance.getEndEffectorCoralBreak();
+		return timer.getTimeAsDouble() > 3.5 || Superstructure.mInstance.getEndEffectorCoralBreak();
 	}
 }
