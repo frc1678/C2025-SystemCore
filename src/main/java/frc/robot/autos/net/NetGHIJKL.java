@@ -78,7 +78,7 @@ public class NetGHIJKL extends AutoModeBase {
 				s.reefAlgaeIntakeInAuto(false).asProxy().deadlineFor(s.goToReefIntakePose(Face.FAR_CENTER)),
 				ghAlgaeToNet
 						.cmd()
-						.deadlineFor(Commands.waitSeconds(0.5)
+						.deadlineFor(Commands.wait(0.5)
 								.andThen(
 										MotionPlanner.safePivotAndElevatorToPosition(Pivot.NET_SCORE, Elevator.NET_PREP)
 												.unless(() -> Pivot.mInstance.nearPosition(PivotConstants.kNetScore))
@@ -90,7 +90,7 @@ public class NetGHIJKL extends AutoModeBase {
 						.deadlineFor(netToIJAlgae.cmd().andThen(s.goToReefIntakePose(Face.FAR_LEFT))),
 				ijAlgaeToNet
 						.cmd()
-						.deadlineFor(Commands.waitSeconds(0.5)
+						.deadlineFor(Commands.wait(0.5)
 								.andThen(MotionPlanner.safePivotAndElevatorToPosition(Pivot.NET_SCORE, Elevator.L3_LIFT)
 										.unless(() -> Pivot.mInstance.nearPosition(PivotConstants.kNetScore))
 										.until(() -> Pivot.mInstance.nearPosition(PivotConstants.kNetScore))
@@ -101,7 +101,7 @@ public class NetGHIJKL extends AutoModeBase {
 						.deadlineFor(netToKLAlgae.cmd().andThen(s.goToReefIntakePose(Face.NEAR_LEFT))),
 				Commands.either(
 						Commands.parallel(
-								Commands.waitSeconds(1.0)
+								Commands.wait(1.0)
 										.andThen(s.processorPrep().asProxy()),
 								klAlgaeToNet
 										.cmd()
@@ -110,7 +110,7 @@ public class NetGHIJKL extends AutoModeBase {
 						Commands.sequence(
 								klAlgaeToNet
 										.cmd()
-										.deadlineFor(Commands.waitSeconds(0.5)
+										.deadlineFor(Commands.wait(0.5)
 												.andThen(MotionPlanner.safePivotAndElevatorToPosition(
 																Pivot.NET_SCORE, Elevator.NET_PREP)
 														.unless(() ->

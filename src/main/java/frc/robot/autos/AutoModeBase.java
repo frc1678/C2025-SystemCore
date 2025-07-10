@@ -387,7 +387,7 @@ public class AutoModeBase {
 												Superstructure.mInstance.setHasAlgaeCommand(true),
 												EndEffector.mInstance
 														.setpointCommand(EndEffector.ALGAE_HOLD)
-														.beforeStarting(Commands.waitSeconds(0.2)))
+														.beforeStarting(Commands.wait(0.2)))
 										.asProxy(),
 								Superstructure.mInstance.waitUnitlSlowEnoughToRaiseNetInAuto(),
 								Superstructure.mInstance.netPrep().asProxy()),

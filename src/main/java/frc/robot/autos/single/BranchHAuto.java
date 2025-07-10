@@ -25,7 +25,7 @@ public class BranchHAuto extends AutoModeBase {
 
 		prepRoutine(
 				AutoHelpers.resetPoseIfWithoutEstimate(startPose),
-				Commands.waitSeconds(6.0),
+				Commands.wait(6.0),
 				autoScoreWithPrepWithoutCoralHold(Branch.H, Level.L4, startPose),
 				cmdWithAccuracy(hToStation));
 	}
