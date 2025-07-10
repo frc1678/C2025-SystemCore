@@ -58,9 +58,9 @@ public class FollowXLineSwerveRequestCommand extends Command {
 	@Override
 	public void execute() {
 		ChassisSpeeds desiredSpeeds = calculateSpeeds();
-		Drive.mInstance.setSwerveRequest(DriveConstants.PIDToPoseRequest.withVelocityX(desiredSpeeds.vxMetersPerSecond)
-				.withVelocityY(desiredSpeeds.vyMetersPerSecond)
-				.withRotationalRate(desiredSpeeds.omegaRadiansPerSecond));
+		Drive.mInstance.setSwerveRequest(DriveConstants.PIDToPoseRequest.withVelocityX(desiredSpeeds.vx)
+				.withVelocityY(desiredSpeeds.vy)
+				.withRotationalRate(desiredSpeeds.omega));
 
 		if (driveDone()) {
 			Superstructure.mInstance.setDriveReady(true);

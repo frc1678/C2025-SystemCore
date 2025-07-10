@@ -248,8 +248,8 @@ public class Drive extends SubsystemBase {
 		ChassisSpeeds speeds = getState().Speeds;
 		return getPitchStable()
 				&& getRollStable()
-				&& Units.MetersPerSecond.of(Math.hypot(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond))
+				&& Units.MetersPerSecond.of(Math.hypot(speeds.vx, speeds.vy))
 						.lte(DriveConstants.kScoringTranslationMaxSpeed)
-				&& Units.RadiansPerSecond.of(speeds.omegaRadiansPerSecond).lte(DriveConstants.kScoringRotationMaxSpeed);
+				&& Units.RadiansPerSecond.of(speeds.omega).lte(DriveConstants.kScoringRotationMaxSpeed);
 	}
 }
