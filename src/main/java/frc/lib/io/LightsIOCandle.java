@@ -1,7 +1,9 @@
 package frc.lib.io;
 
-import com.ctre.phoenix.led.CANdle;
-import com.ctre.phoenix.led.CANdleConfiguration;
+
+import com.ctre.phoenix6.configs.CANdleConfiguration;
+import com.ctre.phoenix6.hardware.CANdle;
+
 import frc.lib.io.LightsIO.State.RGBColor;
 
 public class LightsIOCandle extends LightsIO {
@@ -10,11 +12,11 @@ public class LightsIOCandle extends LightsIO {
 	public LightsIOCandle(LightsIOCandleConfiguration config) {
 		super(config.ledCount);
 		candle = new CANdle(config.id, config.bus);
-		candle.configAllSettings(config.configuration);
+		candle.getConfigurator().apply(config.configuration);
 	}
 
 	protected void setLEDs(RGBColor color, int startIndex, int numLeds) {
-		candle.setLEDs(color.r, color.g, color.b, 0, startIndex, numLeds);
+		// candle.setLEDs(color.r, color.g, color.b, 0, startIndex, numLeds);
 	}
 
 	public static class LightsIOCandleConfiguration {
