@@ -104,9 +104,9 @@ public class Superstructure extends SubsystemBase {
 	public void updateTargetedBranch() {
 		SwerveDriveState currentState = Drive.mInstance.getState();
 		Transform2d speedsPose = new Transform2d(
-						currentState.Speeds.vxMetersPerSecond,
-						currentState.Speeds.vyMetersPerSecond,
-						Rotation2d.fromRadians(currentState.Speeds.omegaRadiansPerSecond))
+						currentState.Speeds.vx,
+						currentState.Speeds.vy,
+						Rotation2d.fromRadians(currentState.Speeds.omega))
 				.times(SuperstructureConstants.lookaheadBranchSelectionTime.in(Units.Seconds));
 		Pose2d lookeaheadPose = currentState.Pose.transformBy(speedsPose);
 		targetingBranch = FieldLayout.Branch.getClosestBranch(lookeaheadPose, RobotConstants.isRedAlliance);
@@ -202,7 +202,7 @@ public class Superstructure extends SubsystemBase {
 	public Command liberateCoralDeploy() {
 		return Commands.sequence(
 						CoralRollers.mInstance.setpointCommand(CoralRollers.START),
-						Commands.waitSeconds(0.5),
+						Commands.wait(0.5),
 						CoralRollers.mInstance.setpointCommand(CoralRollers.IDLE))
 				.withName("Liberate Coral Deploy");
 	}
@@ -351,7 +351,7 @@ public class Superstructure extends SubsystemBase {
 								.withDeadline(Commands.sequence(
 										EndEffector.mInstance.setpointCommand(EndEffector.ALGAE_FEED),
 										setState(State.GROUND_ALGAE),
-										Commands.waitSeconds(0.2),
+										Commands.wait(0.2),
 										allAlgae.stateWait(true),
 										setHasAlgaeCommand(true),
 										EndEffector.mInstance.setpointCommand(EndEffector.ALGAE_HOLD))),
@@ -601,7 +601,7 @@ public class Superstructure extends SubsystemBase {
 		return Commands.sequence(
 						EndEffector.mInstance.setpointCommand(EndEffector.NET_ALGAE_SCORE),
 						setHasAlgaeCommand(false),
-						Commands.waitSeconds(0.3),
+						Commands.wait(0.3),
 						EndEffector.mInstance.setpointCommand(EndEffector.IDLE))
 				.handleInterrupt(() -> setHasAlgae(false));
 	}
@@ -610,7 +610,7 @@ public class Superstructure extends SubsystemBase {
 		return Commands.sequence(
 						EndEffector.mInstance.setpointCommand(Setpoint.withVoltageSetpoint(Units.Volts.of(-9.0))),
 						setHasAlgaeCommand(false),
-						Commands.waitSeconds(0.3),
+						Commands.wait(0.3),
 						EndEffector.mInstance.setpointCommand(EndEffector.IDLE))
 				.handleInterrupt(() -> setHasAlgae(false));
 	}
@@ -645,7 +645,7 @@ public class Superstructure extends SubsystemBase {
 						setHasAlgaeCommand(true),
 						EndEffector.mInstance
 								.setpointCommand(EndEffector.ALGAE_HOLD)
-								.beforeStarting(Commands.waitSeconds(0.2)),
+								.beforeStarting(Commands.wait(0.2)),
 						Elevator.mInstance.setpointCommandWithWait(isL3 ? Elevator.L3_LIFT : Elevator.L2_LIFT)));
 	}
 
@@ -691,7 +691,7 @@ public class Superstructure extends SubsystemBase {
 								EndEffector.mInstance.setpointCommand(EndEffector.PROCESSOR_ALGAE_SCORE),
 								AlgaeRollers.mInstance.setpointCommand(AlgaeRollers.EXHAUST)),
 						setHasAlgaeCommand(false),
-						Commands.waitSeconds(0.5),
+						Commands.wait(0.5),
 						Commands.parallel(
 								EndEffector.mInstance.setpointCommand(EndEffector.IDLE),
 								AlgaeRollers.mInstance.setpointCommand(AlgaeRollers.IDLE),
@@ -718,9 +718,9 @@ public class Superstructure extends SubsystemBase {
 						Climber.mInstance.setpointCommand(Climber.PREP),
 						ClimberRollers.mInstance.setpointCommand(ClimberRollers.INTAKE),
 						CoralDeploy.mInstance.setpointCommand(CoralDeploy.STOW_CLEAR)),
-				Commands.waitSeconds(1.5),
+				Commands.wait(1.5),
 				climberRollersVelocityDip.stateWaitWithDebounce(true),
-				Commands.waitSeconds(0.5),
+				Commands.wait(0.5),
 				Commands.parallel(
 						ControlBoard.mInstance.rumbleCommand(Units.Seconds.of(0.5)), LEDs.mInstance.flashCommand()));
 	}
@@ -763,16 +763,16 @@ public class Superstructure extends SubsystemBase {
 
 	public Command waitUnitlSlowEnoughToRaiseNet() {
 		return Commands.waitUntil(() -> Math.hypot(
-								Drive.mInstance.getState().Speeds.vxMetersPerSecond,
-								Drive.mInstance.getState().Speeds.vyMetersPerSecond)
+								Drive.mInstance.getState().Speeds.vx,
+								Drive.mInstance.getState().Speeds.vy)
 						< DriveConstants.kMaxSpeedVeryTippy.times(1.1).in(Units.MetersPerSecond))
 				.alongWith(Commands.waitUntil(() -> closeToNetLine()));
 	}
 
 	public Command waitUnitlSlowEnoughToRaiseNetInAuto() {
 		return Commands.waitUntil(() -> Math.hypot(
-								Drive.mInstance.getState().Speeds.vxMetersPerSecond,
-								Drive.mInstance.getState().Speeds.vyMetersPerSecond)
+								Drive.mInstance.getState().Speeds.vx,
+								Drive.mInstance.getState().Speeds.vy)
 						< DriveConstants.kMaxSpeedVeryTippy.times(1.1).in(Units.MetersPerSecond))
 				.alongWith(Commands.waitUntil(() -> closeToNetLineInAuto()));
 	}
@@ -990,7 +990,7 @@ public class Superstructure extends SubsystemBase {
 
 	public Command waitToGulp() {
 		return Commands.race(
-				Commands.sequence(Commands.waitSeconds(1.0), coralRollersCurrentSpike.stateWaitWithDebounce(true)),
+				Commands.sequence(Commands.wait(1.0), coralRollersCurrentSpike.stateWaitWithDebounce(true)),
 				endEffectorCoralBreak.stateWaitWithDebounce(true),
 				new WaitUntilCommand(() -> forceGulp));
 	}

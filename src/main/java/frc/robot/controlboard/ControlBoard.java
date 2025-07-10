@@ -433,7 +433,7 @@ public class ControlBoard extends SubsystemBase {
 						Commands.runOnce(() -> {
 							setRumble(true);
 						}),
-						Commands.waitSeconds(duration.in(Units.Seconds)),
+						Commands.wait(duration.in(Units.Seconds)),
 						Commands.runOnce(() -> {
 							setRumble(false);
 						}))
