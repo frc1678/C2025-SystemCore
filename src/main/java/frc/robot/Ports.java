@@ -6,9 +6,9 @@ package frc.robot;
  */
 public enum Ports {
 	ALGAE_DEPLOY(8, "canivore1"),
-	ALGAE_ROLLERS(9, "rio"),
+	ALGAE_ROLLERS(9, "can_s0"),
 	CORAL_DEPLOY(10, "canivore1"),
-	CORAL_ROLLERS(11, "rio"),
+	CORAL_ROLLERS(11, "can_s0"),
 	CORAL_INDEXER(12, "canivore1"),
 	END_EFFECTOR(13, "canivore1"),
 	ELEVATOR_MAIN(14, "canivore1"),
