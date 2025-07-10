@@ -43,7 +43,7 @@ public class RollerSim extends MechanismSim {
 
 	@Override
 	public AngularVelocity getVelocity() {
-		return Units.Rotations.of(sim.getAngularVelocityRPM()).per(Units.Minute);
+		return Units.Rotations.of(edu.wpi.first.math.util.Units.radiansPerSecondToRotationsPerMinute(sim.getAngularVelocity())).per(Units.Minute);
 	}
 
 	@Override

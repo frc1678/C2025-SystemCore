@@ -55,12 +55,12 @@ public class PivotSim extends MechanismSim {
 
 	@Override
 	public AngularVelocity getVelocity() {
-		return Units.Radians.of(sim.getVelocityRadPerSec()).per(Units.Second);
+		return Units.Radians.of(sim.getVelocity()).per(Units.Second);
 	}
 
 	@Override
 	public Angle getPosition() {
-		return Units.Radians.of(sim.getAngleRads());
+		return Units.Radians.of(sim.getAngle());
 	}
 
 	@Override
