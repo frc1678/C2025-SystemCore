@@ -8,13 +8,8 @@ public class RobotConstants {
 	public static boolean isOmega;
 
 	static {
-		if (Robot.isReal()) {
-			kSerial = System.getenv("serialnum");
-		} else {
-			kSerial = "";
-		}
-		RobotConstants.isComp = kSerial.startsWith(RobotConstants.kCompSerial);
-		RobotConstants.isOmega = kSerial.startsWith(RobotConstants.kOmegaSerial);
+		RobotConstants.isComp = false;
+		RobotConstants.isOmega = true;
 		RobotConstants.isRedAlliance = false;
 	}
 
