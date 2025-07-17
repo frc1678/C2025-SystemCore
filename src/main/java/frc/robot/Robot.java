@@ -132,7 +132,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Command Scheduler", CommandScheduler.getInstance());
 		SmartDashboard.putData(mButton);
 
-		RobotController.setBrownoutVoltage(Units.Volts.of(4.6));
+		// RobotController.setBrownoutVoltage(Units.Volts.of(4.6));
 
 		DataLogManager.start();
 		DriverStation.startDataLog(DataLogManager.getLog());
