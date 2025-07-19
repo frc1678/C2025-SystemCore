@@ -18,10 +18,10 @@ public class CoralRollerConstants {
 	private static final double kGearing = (24.0 / 12.0);
 
 	public static final Voltage kStartVoltage = Units.Volts.of(3.0);
-	public static final Voltage kIntakeVoltage = Units.Volts.of(RobotConstants.isComp ? -12.0 : 12.0);
+	public static final Voltage kIntakeVoltage = Units.Volts.of(-12.0);
 	public static final Voltage kPelicanVoltage = Units.Volts.of(2.0);
 
-	public static final Voltage kExhaustVoltage = Units.Volts.of(RobotConstants.isComp ? 12.0 : -12.0);
+	public static final Voltage kExhaustVoltage = Units.Volts.of(12.0);
 
 	public static TalonFXConfiguration getFXConfig() {
 		TalonFXConfiguration config = new TalonFXConfiguration();
