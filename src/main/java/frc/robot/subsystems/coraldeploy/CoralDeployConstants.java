@@ -24,10 +24,10 @@ import frc.robot.RobotConstants;
 public class CoralDeployConstants {
 	public static final double kGearing = 40.0;
 
-	public static final Angle kDeployPosition = Units.Degrees.of(RobotConstants.isOmega ? 10.0 : 3.0);
+	public static final Angle kDeployPosition = Units.Degrees.of(3.0);
 	public static final Angle kStowClearPosition = Units.Degrees.of(55.0);
-	public static final Angle kFullStowPosition = Units.Degrees.of(RobotConstants.isOmega ? 85.918 : 83.0);
-	public static final Angle kIndexerHold = Units.Degrees.of(RobotConstants.isOmega ? 20.0 : 10.0);
+	public static final Angle kFullStowPosition = Units.Degrees.of(83.0);
+	public static final Angle kIndexerHold = Units.Degrees.of(10.0);
 
 	public static final Angle kExhaustPosition = kDeployPosition;
 	// 79.753 range of motion
