@@ -24,12 +24,12 @@ import frc.robot.Robot;
 import frc.robot.RobotConstants;
 
 public class ClimberConstants {
-	public static final double kGearing = RobotConstants.isComp ? (36.0 / 1.0) : (60.0 / 1.0);
+	public static final double kGearing = (36.0 / 1.0);
 
 	public static final Util.DistanceAngleConverter converter =
 			new Util.DistanceAngleConverter(Units.Inches.of(0.675).div(2.0));
 
-	public static final Distance kPrepPosition = Units.Inches.of(RobotConstants.isComp ? 18.78 : 17.78);
+	public static final Distance kPrepPosition = Units.Inches.of(18.78);
 	public static final Distance kPullPosition = Units.Inches.of(10.948);
 	public static final Distance kStowPosition = Units.Inches.of(10.948);
 	public static final Distance kClearPosition = kStowPosition.plus(Units.Inches.of(0.5));
