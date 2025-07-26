@@ -19,6 +19,7 @@ import frc.robot.subsystems.algaedeploy.AlgaeDeploy;
 import frc.robot.subsystems.algaedeploy.AlgaeDeployConstants;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.climberrollers.ClimberRollers;
+import frc.robot.subsystems.coraldeploy.CoralDeploy;
 import frc.robot.subsystems.coralrollers.CoralRollers;
 import frc.robot.subsystems.detection.Detection;
 import frc.robot.subsystems.detection.DetectionConstants;
@@ -108,10 +109,16 @@ public class ControlBoard extends SubsystemBase {
 		driver.a().onTrue(s.spit().onlyWhile(driver.a()));
 
 		// driver.x().onTrue(s.latchClimb());
+		driver.x().onTrue(s.L4Prep());
 
-		driver.y().onTrue(s.prepClimb());
+		driver.y().onTrue(s.L3Prep());
 
-		driver.b().onTrue(s.stowClimb());
+		driver.b().onTrue(s.L2Prep());
+
+
+		// driver.y().onTrue(s.prepClimb());
+
+		// driver.b().onTrue(s.stowClimb());
 
 		driver.leftBumper().onTrue(s.tuckOrHold());
 
