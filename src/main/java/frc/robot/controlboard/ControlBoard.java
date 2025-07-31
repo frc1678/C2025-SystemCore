@@ -181,7 +181,7 @@ public class ControlBoard extends SubsystemBase {
 
 		// Top Left Paddle
 		// bindProcessorAutoScore(driver.povRight());
-		driver.povRight()
+		driver.pov(POVDirection.Right)
 				.and(() -> !getCoralMode())
 				.onTrue(Superstructure.mInstance.processorPrep())
 				.onTrue(setOverrideBehavior(OverrideBehavior.PROCESSOR_SCORE));
@@ -190,10 +190,10 @@ public class ControlBoard extends SubsystemBase {
 		// driver.povUp().and(() -> !getCoralMode()).onTrue(s.reefAlgaeIntakeAndStow(false));
 
 		// Bottom Left Paddle (povLeft)
-		bindAlgaeReefIntake(driver.povLeft());
+		bindAlgaeReefIntake(driver.pov(POVDirection.Left));
 
 		// Bottom Right Paddle
-		bindNetAlignAndScore(driver.povDown());
+		bindNetAlignAndScore(driver.pov(POVDirection.Down));
 	}
 
 	public void bindCoralAutoScore(Level level, Trigger button) {
@@ -402,9 +402,9 @@ public class ControlBoard extends SubsystemBase {
 						.setpointCommand(Elevator.HOLD_UP)
 						.andThen(() -> Elevator.mInstance.useSoftLimits(true)));
 
-		operator.povUp().onTrue(ClimberRollers.mInstance.setpointCommand(ClimberRollers.INTAKE));
+		operator.pov(POVDirection.Up).onTrue(ClimberRollers.mInstance.setpointCommand(ClimberRollers.INTAKE));
 
-		operator.povDown().onTrue(ClimberRollers.mInstance.setpointCommand(ClimberRollers.IDLE));
+		operator.pov(POVDirection.Down).onTrue(ClimberRollers.mInstance.setpointCommand(ClimberRollers.IDLE));
 
 		operator.leftBumper()
 				.onTrue(new InstantCommand(() -> Pivot.mInstance.setCurrentPosition(
