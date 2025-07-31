@@ -4,6 +4,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Time;
+import edu.wpi.first.wpilibj.DriverStation.POVDirection;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
@@ -165,16 +166,16 @@ public class ControlBoard extends SubsystemBase {
 		// 			.onlyWhile(driver.povRight())
 		// 		.withName("Auto Align " + Level.L1.toString()));
 
-		bindCoralAutoScore(Level.L1, driver.povRight());
+		bindCoralAutoScore(Level.L1, driver.pov(POVDirection.Right));
 
 		// Top Right Paddle
-		bindCoralAutoScore(Level.L2, driver.povUp());
+		bindCoralAutoScore(Level.L2, driver.pov(POVDirection.Up));
 
 		// Bottom Left Paddle
-		bindCoralAutoScore(Level.L3, driver.povLeft());
+		bindCoralAutoScore(Level.L3, driver.pov(POVDirection.Left));
 
 		// Bottom Right Paddle
-		bindCoralAutoScore(Level.L4, driver.povDown());
+		bindCoralAutoScore(Level.L4, driver.pov(POVDirection.Down));
 
 		// ALGAE MODE ###############################################################################
 
