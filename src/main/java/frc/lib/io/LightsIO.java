@@ -6,8 +6,11 @@ import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.lib.io.LightsIO.State.RGBColor;
 import java.util.ArrayList;
+
+import com.ctre.phoenix6.signals.RGBWColor;
 
 public abstract class LightsIO implements Sendable {
 	protected ArrayList<Pair<State, Integer>> currentState = new ArrayList<>();
@@ -79,6 +82,10 @@ public abstract class LightsIO implements Sendable {
 						Double.valueOf(color.red * 255).intValue(),
 						Double.valueOf(color.green * 255).intValue(),
 						Double.valueOf(color.blue * 255).intValue());
+			}
+
+			public static RGBWColor toRGBWCOlor(RGBColor color){
+				return new RGBWColor(color.r, color.g, color.b);
 			}
 
 			public static final RGBColor lime = new RGBColor(102, 255, 88);
