@@ -149,7 +149,7 @@ public abstract class LightsIO implements Sendable {
 				}
 				lastUpdateTime = currentTime;
 			}
-			io.setLEDs(colors[currentIndex], startIndex, numLeds);
+			// io.setLEDs(colors[currentIndex], startIndex, numLeds);
 		}
 	}
 
@@ -204,10 +204,10 @@ public abstract class LightsIO implements Sendable {
 				int beginIndex = (offset + (ledsPerColor * i)) % numLeds + startIndex;
 				int overlap = (beginIndex + ledsPerColor) - (startIndex + numLeds);
 				if (overlap > 0) { // if it'll overlflow past the end
-					io.setLEDs(colors[i], beginIndex, ledsPerColor - overlap);
-					io.setLEDs(colors[i], startIndex, overlap);
+					// io.setLEDs(colors[i], beginIndex, ledsPerColor - overlap);
+					// io.setLEDs(colors[i], startIndex, overlap);
 				} else {
-					io.setLEDs(colors[i], beginIndex, ledsPerColor);
+					// io.setLEDs(colors[i], beginIndex, ledsPerColor);
 					;
 				}
 			}
