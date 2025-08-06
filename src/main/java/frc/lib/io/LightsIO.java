@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.util.Color;
 import frc.lib.io.LightsIO.State.RGBColor;
 import java.util.ArrayList;
 
+import com.ctre.phoenix6.controls.ControlRequest;
+import com.ctre.phoenix6.controls.SolidColor;
 import com.ctre.phoenix6.signals.RGBWColor;
 
 public abstract class LightsIO implements Sendable {
@@ -55,7 +57,7 @@ public abstract class LightsIO implements Sendable {
 		currentState = state;
 	}
 
-	protected abstract void setLEDs(RGBColor color, int startIndex, int numLeds);
+	protected abstract void setLEDs(ControlRequest color);
 
 	public abstract static class State {
 		public final String name;
@@ -105,6 +107,7 @@ public abstract class LightsIO implements Sendable {
 	}
 
 	public static class Solid extends State {
+		public SolidColor request;
 		public final RGBColor color;
 
 		public Solid(String name, RGBColor color) {
@@ -114,7 +117,8 @@ public abstract class LightsIO implements Sendable {
 
 		@Override
 		public void apply(LightsIO io, int startIndex, int numLeds) {
-			io.setLEDs(color, startIndex, numLeds);
+			request = new SolidColor(startIndex, startIndex + numLeds).withColor(RGBColor.toRGBWCOlor(color));
+			io.setLEDs(request);
 		}
 	}
 
