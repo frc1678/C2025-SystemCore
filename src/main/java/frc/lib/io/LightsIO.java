@@ -127,11 +127,13 @@ public abstract class LightsIO implements Sendable {
 		public final Time interval;
 		public Time lastUpdateTime = Units.Seconds.of(0.0);
 		public int currentIndex = 0;
+		public SolidColor currentColor;
 
 		public Flashing(String name, Time interval, RGBColor... colors) {
 			super(name);
 			this.interval = interval;
 			this.colors = colors;
+			currentColor = new SolidColor(currentIndex, currentIndex);
 		}
 
 		@Override
@@ -149,7 +151,10 @@ public abstract class LightsIO implements Sendable {
 				}
 				lastUpdateTime = currentTime;
 			}
-			// io.setLEDs(colors[currentIndex], startIndex, numLeds);
+			currentColor.withLEDStartIndex(startIndex);
+			currentColor.withLEDEndIndex(startIndex + numLeds);
+			currentColor.withColor(RGBColor.toRGBWCOlor(colors[currentIndex]));
+			io.setLEDs(currentColor);
 		}
 	}
 
@@ -191,6 +196,7 @@ public abstract class LightsIO implements Sendable {
 
 		@Override
 		public void apply(LightsIO io, int startIndex, int numLeds) {
+			SolidColor color;
 			double percentIntoInterval =
 					(Timer.getFPGATimestamp() % interval.in(Units.Seconds)) / interval.in(Units.Seconds);
 			int ledsPerColor = numLeds / colors.length;
@@ -203,10 +209,18 @@ public abstract class LightsIO implements Sendable {
 			for (int i = 0; i < colors.length; i++) {
 				int beginIndex = (offset + (ledsPerColor * i)) % numLeds + startIndex;
 				int overlap = (beginIndex + ledsPerColor) - (startIndex + numLeds);
-				if (overlap > 0) { // if it'll overlflow past the end
-					// io.setLEDs(colors[i], beginIndex, ledsPerColor - overlap);
+				if (overlap > 0) { // if it'll overlflow past the 
+					// io.setLEDs(colors[i], beginIndex, ledsPerColor - overlap);	
+					color = new SolidColor(beginIndex, ledsPerColor - overlap);
+					color.withColor(RGBColor.toRGBWCOlor(colors[i]));
+
 					// io.setLEDs(colors[i], startIndex, overlap);
+					color = new SolidColor(startIndex, overlap);
+					color.withColor(RGBColor.toRGBWCOlor(colors[i]));
+
 				} else {
+					color = new SolidColor(beginIndex, numLeds);
+					color.withColor(RGBColor.toRGBWCOlor(colors[i]))
 					// io.setLEDs(colors[i], beginIndex, ledsPerColor);
 					;
 				}
