@@ -17,10 +17,10 @@ import frc.robot.RobotConstants;
 
 public class LEDsConstants {
 	public static final int candleLEDs = 8;
-	public static final int frontLEDs = RobotConstants.isOmega ? 12 : 16;
+	public static final int frontLEDs = 12;
 	public static final int leftLEDs = 11;
 	public static final int backLEDs = 21;
-	public static final int rightLEDs = RobotConstants.isOmega ? 22 : 21;
+	public static final int rightLEDs = 22;
 
 	public static final int stripLEDs = frontLEDs + leftLEDs + backLEDs + rightLEDs;
 
