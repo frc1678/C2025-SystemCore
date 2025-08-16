@@ -6,6 +6,7 @@ import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.lib.bases.LightsSubsystem;
 import frc.lib.io.LightsIO;
@@ -64,6 +65,7 @@ public class LEDs extends LightsSubsystem<LightsIO> {
 	public State getPivotZeroLEDsState() {
 		Angle position = Pivot.mInstance.getAbsolutePosition();
 		if (position.minus(PivotConstants.kAutoStart).abs(Units.Degrees) < 2.0) {
+			SmartDashboard.putNumber("Pivot/Amt", position.minus(PivotConstants.kAutoStart).abs(Units.Degrees));
 			return LEDsConstants.getSolidState(RGBColor.green);
 		} else {
 			int amountOff;
@@ -77,6 +79,7 @@ public class LEDs extends LightsSubsystem<LightsIO> {
 			}
 
 			int ledColor = Math.min(Math.abs(amountOff), 255);
+			SmartDashboard.putNumber("Pivot/amount off", amountOff);
 			return LEDsConstants.getLinearState(new RGBColor(ledColor, 255 - ledColor, 0), (amountOff < 0));
 		}
 	}
