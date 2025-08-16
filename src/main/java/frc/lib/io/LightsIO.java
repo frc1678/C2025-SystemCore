@@ -211,18 +211,20 @@ public abstract class LightsIO implements Sendable {
 				int overlap = (beginIndex + ledsPerColor) - (startIndex + numLeds);
 				if (overlap > 0) { // if it'll overlflow past the 
 					// io.setLEDs(colors[i], beginIndex, ledsPerColor - overlap);	
-					color = new SolidColor(beginIndex, ledsPerColor - overlap);
-					color.withColor(RGBColor.toRGBWCOlor(colors[i]));
+					// color = new SolidColor(beginIndex, ledsPerColor - overlap + beginIndex);
+					// color.withColor(RGBColor.toRGBWCOlor(colors[i]));
+					// io.setLEDs(color);
 
 					// io.setLEDs(colors[i], startIndex, overlap);
-					color = new SolidColor(startIndex, overlap);
+					color = new SolidColor(startIndex+1, numLeds + startIndex);
 					color.withColor(RGBColor.toRGBWCOlor(colors[i]));
+					io.setLEDs(color);
 
 				} else {
-					color = new SolidColor(beginIndex, numLeds);
-					color.withColor(RGBColor.toRGBWCOlor(colors[i]))
-					// io.setLEDs(colors[i], beginIndex, ledsPerColor);
-					;
+					// color = new SolidColor(startIndex+1, numLeds + startIndex);
+					// color.withColor(RGBColor.toRGBWCOlor(colors[i]));
+					// io.setLEDs(color);
+	
 				}
 			}
 		}
