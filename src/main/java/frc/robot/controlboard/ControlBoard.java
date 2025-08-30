@@ -110,16 +110,10 @@ public class ControlBoard extends SubsystemBase {
 		driver.a().onTrue(s.spit().onlyWhile(driver.a()));
 
 		// driver.x().onTrue(s.latchClimb());
-		driver.x().onTrue(s.L4Prep());
 
-		driver.y().onTrue(s.L3Prep());
+		driver.y().onTrue(s.prepClimb());
 
-		driver.b().onTrue(s.L2Prep());
-
-
-		// driver.y().onTrue(s.prepClimb());
-
-		// driver.b().onTrue(s.stowClimb());
+		driver.b().onTrue(s.stowClimb());
 
 		driver.leftBumper().onTrue(s.tuckOrHold());
 

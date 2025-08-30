@@ -6,8 +6,13 @@ import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.lib.io.LightsIO.State.RGBColor;
 import java.util.ArrayList;
+
+import com.ctre.phoenix6.controls.ControlRequest;
+import com.ctre.phoenix6.controls.SolidColor;
+import com.ctre.phoenix6.signals.RGBWColor;
 
 public abstract class LightsIO implements Sendable {
 	protected ArrayList<Pair<State, Integer>> currentState = new ArrayList<>();
@@ -52,7 +57,7 @@ public abstract class LightsIO implements Sendable {
 		currentState = state;
 	}
 
-	protected abstract void setLEDs(RGBColor color, int startIndex, int numLeds);
+	protected abstract void setLEDs(ControlRequest color);
 
 	public abstract static class State {
 		public final String name;
@@ -81,6 +86,10 @@ public abstract class LightsIO implements Sendable {
 						Double.valueOf(color.blue * 255).intValue());
 			}
 
+			public static RGBWColor toRGBWCOlor(RGBColor color){
+				return new RGBWColor(color.r, color.g, color.b);
+			}
+
 			public static final RGBColor lime = new RGBColor(102, 255, 88);
 			public static final RGBColor none = new RGBColor(0, 0, 0);
 			public static final RGBColor red = new RGBColor(255, 0, 0);
@@ -98,6 +107,7 @@ public abstract class LightsIO implements Sendable {
 	}
 
 	public static class Solid extends State {
+		public SolidColor request;
 		public final RGBColor color;
 
 		public Solid(String name, RGBColor color) {
@@ -107,7 +117,8 @@ public abstract class LightsIO implements Sendable {
 
 		@Override
 		public void apply(LightsIO io, int startIndex, int numLeds) {
-			io.setLEDs(color, startIndex, numLeds);
+			request = new SolidColor(startIndex, startIndex + numLeds).withColor(RGBColor.toRGBWCOlor(color));
+			io.setLEDs(request);
 		}
 	}
 
@@ -116,11 +127,13 @@ public abstract class LightsIO implements Sendable {
 		public final Time interval;
 		public Time lastUpdateTime = Units.Seconds.of(0.0);
 		public int currentIndex = 0;
+		public SolidColor currentColor;
 
 		public Flashing(String name, Time interval, RGBColor... colors) {
 			super(name);
 			this.interval = interval;
 			this.colors = colors;
+			currentColor = new SolidColor(currentIndex, currentIndex);
 		}
 
 		@Override
@@ -138,7 +151,10 @@ public abstract class LightsIO implements Sendable {
 				}
 				lastUpdateTime = currentTime;
 			}
-			io.setLEDs(colors[currentIndex], startIndex, numLeds);
+			currentColor.withLEDStartIndex(startIndex);
+			currentColor.withLEDEndIndex(startIndex + numLeds);
+			currentColor.withColor(RGBColor.toRGBWCOlor(colors[currentIndex]));
+			io.setLEDs(currentColor);
 		}
 	}
 
@@ -180,6 +196,7 @@ public abstract class LightsIO implements Sendable {
 
 		@Override
 		public void apply(LightsIO io, int startIndex, int numLeds) {
+			SolidColor color;
 			double percentIntoInterval =
 					(Timer.getFPGATimestamp() % interval.in(Units.Seconds)) / interval.in(Units.Seconds);
 			int ledsPerColor = numLeds / colors.length;
@@ -192,12 +209,22 @@ public abstract class LightsIO implements Sendable {
 			for (int i = 0; i < colors.length; i++) {
 				int beginIndex = (offset + (ledsPerColor * i)) % numLeds + startIndex;
 				int overlap = (beginIndex + ledsPerColor) - (startIndex + numLeds);
-				if (overlap > 0) { // if it'll overlflow past the end
-					io.setLEDs(colors[i], beginIndex, ledsPerColor - overlap);
-					io.setLEDs(colors[i], startIndex, overlap);
+				if (overlap > 0) { // if it'll overlflow past the 
+					// io.setLEDs(colors[i], beginIndex, ledsPerColor - overlap);	
+					// color = new SolidColor(beginIndex, ledsPerColor - overlap + beginIndex);
+					// color.withColor(RGBColor.toRGBWCOlor(colors[i]));
+					// io.setLEDs(color);
+
+					// io.setLEDs(colors[i], startIndex, overlap);
+					color = new SolidColor(startIndex+1, numLeds + startIndex);
+					color.withColor(RGBColor.toRGBWCOlor(colors[i]));
+					io.setLEDs(color);
+
 				} else {
-					io.setLEDs(colors[i], beginIndex, ledsPerColor);
-					;
+					// color = new SolidColor(startIndex+1, numLeds + startIndex);
+					// color.withColor(RGBColor.toRGBWCOlor(colors[i]));
+					// io.setLEDs(color);
+	
 				}
 			}
 		}
