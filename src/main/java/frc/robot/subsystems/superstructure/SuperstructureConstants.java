@@ -148,7 +148,7 @@ public final class SuperstructureConstants {
 				return new BeamBreakIOSim(
 						() -> Pivot.mInstance.getVelocity().abs(Units.DegreesPerSecond)
 								< kPivotStableThresholdVelocity.in(Units.DegreesPerSecond),
-						Units.Seconds.of(0.05),
+						Units.Seconds.of(0.2),
 						"Pivot Velocity Low");
 			} else {
 				return new BeamBreakIOSim(() -> true, Units.Seconds.of(0.05), "Pivot Velocity Low");
