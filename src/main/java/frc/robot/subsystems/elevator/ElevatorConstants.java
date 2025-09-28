@@ -40,7 +40,7 @@ public class ElevatorConstants {
 	// Approximate heights pull from manual- TODO: Tune values
 	public static final Distance kNetHeight = Units.Inches.of(62.17);
 	public static final Distance kL1ScoringHeight = Units.Inches.of(0.0);
-	public static final Distance kL2ScoringHeight = Units.Inches.of(6.3);
+	public static final Distance kL2ScoringHeight = Units.Inches.of(6.0);
 	public static final Distance kL3ScoringHeight = kL2ScoringHeight.plus(Units.Inches.of(16.0));
 	public static final Distance kL4ScoringHeight = Units.Inches.of(60.25);
 	public static final Distance kL2AlgaePosition = Units.Inches.of(21.91);
