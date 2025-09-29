@@ -26,7 +26,7 @@ import frc.robot.controlboard.ControlBoardConstants;
 import java.util.function.UnaryOperator;
 
 public class DriveConstants {
-	public static final LinearVelocity kMaxSpeed = GeneratedConstants.kSpeedAt12Volts;
+	public static final LinearVelocity kMaxSpeed = TunerConstants.kSpeedAt12Volts;
 	public static final LinearVelocity kMaxSpeedFAST = kMaxSpeed.times(2.0);
 
 	public static final LinearAcceleration kMaxAcceleration = Units.MetersPerSecondPerSecond.of(12.0);

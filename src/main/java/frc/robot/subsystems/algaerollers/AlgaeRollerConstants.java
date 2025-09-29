@@ -21,7 +21,7 @@ public class AlgaeRollerConstants {
 	public static final Voltage kIntakeVoltage = Units.Volts.of(8.0);
 	public static final Voltage kExhaustVoltage = Units.Volts.of(-5.0);
 	public static final Voltage kProcessorVoltage = Units.Volts.of(-5.0);
-	public static final Voltage kSoftL1Spit = Units.Volts.of(3.5);
+	public static final Voltage kSoftL1Spit = Units.Volts.of(2.5);
 
 	public static final Current kStatorCurrentThreshold = Units.Amps.of(60.0);
 

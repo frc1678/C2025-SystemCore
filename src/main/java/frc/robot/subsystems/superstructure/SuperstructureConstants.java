@@ -16,6 +16,8 @@ import frc.robot.controlboard.ControlBoardConstants;
 import frc.robot.subsystems.climberrollers.ClimberRollers;
 import frc.robot.subsystems.coralrollers.CoralRollers;
 import frc.robot.subsystems.endeffector.EndEffector;
+import frc.robot.subsystems.pivot.Pivot;
+
 import java.util.function.BooleanSupplier;
 
 public final class SuperstructureConstants {
@@ -138,6 +140,18 @@ public final class SuperstructureConstants {
 						ControlBoardConstants.mOperatorController.povDownLeft(),
 						SuperstructureConstants.kIndexerDebounce,
 						"Indexer Break");
+			}
+		}
+
+		public static BeamBreakIO getPivotVelocityLow() {
+			if (Robot.isReal()) {
+				return new BeamBreakIOSim(
+						() -> Pivot.mInstance.getVelocity().abs(Units.DegreesPerSecond)
+								< kPivotStableThresholdVelocity.in(Units.DegreesPerSecond),
+						Units.Seconds.of(0.2),
+						"Pivot Velocity Low");
+			} else {
+				return new BeamBreakIOSim(() -> true, Units.Seconds.of(0.05), "Pivot Velocity Low");
 			}
 		}
 	}

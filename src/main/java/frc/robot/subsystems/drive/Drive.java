@@ -32,7 +32,7 @@ public class Drive extends SubsystemBase {
 
 	private SwerveDriveState lastReadState;
 	private SwerveRequest driveRequest = DriveConstants.teleopRequest;
-	private final GeneratedDrivetrain drivetrain = GeneratedConstants.createDrivetrain();
+	private final GeneratedDrivetrain drivetrain = TunerConstants.createDrivetrain();
 	private final Telemetry telemetry = new Telemetry(DriveConstants.kMaxSpeed.baseUnitMagnitude());
 	private Time lastPoseResetTime = BaseUnits.TimeUnit.of(0.0);
 

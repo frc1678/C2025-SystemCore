@@ -65,6 +65,7 @@ public class Superstructure extends SubsystemBase {
 	public static BeamBreakIO coralRollersVelocityDip = BeamBreakConstants.getCoralRollersVelocityDip();
 	public static BeamBreakIO climberRollersVelocityDip = BeamBreakConstants.getClimberRollersVelocityDip();
 	public static BeamBreakIO indexerBreak = BeamBreakConstants.getIndexerBeamBreak();
+	public static BeamBreakIO pivotVelocityLow = BeamBreakConstants.getPivotVelocityLow();
 
 	public static BeamBreakIO allAlgae = new BeamBreakIOSim(
 			() -> endEffectorVelocityDip.getDebounced() || endEffectorAlgaeBreak.getDebounced(),
@@ -131,6 +132,7 @@ public class Superstructure extends SubsystemBase {
 		endEffectorVelocityDip.initSendable(builder);
 		coralRollersVelocityDip.initSendable(builder);
 		climberRollersVelocityDip.initSendable(builder);
+		pivotVelocityLow.initSendable(builder);
 		allAlgae.initSendable(builder);
 		indexerBreak.initSendable(builder);
 
@@ -909,8 +911,7 @@ public class Superstructure extends SubsystemBase {
 	}
 
 	public boolean pivotStable() {
-		return Pivot.mInstance.getVelocity().abs(Units.DegreesPerSecond)
-				< SuperstructureConstants.kPivotStableThresholdVelocity.in(Units.DegreesPerSecond);
+		return pivotVelocityLow.getDebounced();
 	}
 
 	public boolean getSuperstructureDone() {
