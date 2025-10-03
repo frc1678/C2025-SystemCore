@@ -10,6 +10,7 @@ import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.DeferredCommand;
@@ -38,6 +39,7 @@ import frc.robot.subsystems.coraldeploy.CoralDeploy;
 import frc.robot.subsystems.coraldeploy.CoralDeployConstants;
 import frc.robot.subsystems.coralindexer.CoralIndexer;
 import frc.robot.subsystems.coralrollers.CoralRollers;
+import frc.robot.subsystems.detection.Detection;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.DriveConstants;
 import frc.robot.subsystems.elevator.Elevator;
@@ -66,6 +68,7 @@ public class Superstructure extends SubsystemBase {
 	public static BeamBreakIO climberRollersVelocityDip = BeamBreakConstants.getClimberRollersVelocityDip();
 	public static BeamBreakIO indexerBreak = BeamBreakConstants.getIndexerBeamBreak();
 	public static BeamBreakIO pivotVelocityLow = BeamBreakConstants.getPivotVelocityLow();
+	public static BeamBreakIO closeCoral = BeamBreakConstants.getCoralClose();
 
 	public static BeamBreakIO allAlgae = new BeamBreakIOSim(
 			() -> endEffectorVelocityDip.getDebounced() || endEffectorAlgaeBreak.getDebounced(),
@@ -80,6 +83,8 @@ public class Superstructure extends SubsystemBase {
 	private boolean isPathFollowing = false;
 
 	private boolean hasAlgae = false;
+
+	// private boolean closeCoral = false;
 
 	private Branch targetingBranch = Branch.A;
 	private Face targetingFace = targetingBranch.getKey().face();
@@ -132,6 +137,7 @@ public class Superstructure extends SubsystemBase {
 		endEffectorVelocityDip.initSendable(builder);
 		coralRollersVelocityDip.initSendable(builder);
 		climberRollersVelocityDip.initSendable(builder);
+		closeCoral.initSendable(builder);
 		pivotVelocityLow.initSendable(builder);
 		allAlgae.initSendable(builder);
 		indexerBreak.initSendable(builder);
@@ -1063,4 +1069,20 @@ public class Superstructure extends SubsystemBase {
 						.minus(Units.Meters.of(Drive.mInstance.getPose().getX()))
 						.abs(BaseUnits.DistanceUnit)));
 	}
+
+	// private void updateCloseCoral(){
+	// 	if (Detection.mInstance.getCoralPose().equals(null) || Drive.mInstance.getPose().equals(null)){
+	// 		closeCoral = false;
+	// 	}
+	// 	closeCoral = Detection.mInstance.getCoralPose().getTranslation()
+	// 							.getDistance(Drive.mInstance.getPose().getTranslation()) 
+	// 							< Units.Meters.of(20.0).baseUnitMagnitude();
+	// 	SmartDashboard.putBoolean("Close Coral", closeCoral);
+	// 	closeCoral = true;
+	// }
+
+	// public boolean getCloseCoral(){
+	// 	return closeCoral;
+	// }
+
 }

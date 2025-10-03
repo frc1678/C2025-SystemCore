@@ -59,6 +59,14 @@ public class DetectionSubsystem<IO extends DetectionIOLimelight> extends Subsyst
 		return io.getCoralPose(base);
 	}
 
+	public Pose2d getCoralPoseWithNullProtection(){
+		if(io.getCoralPose(Drive.mInstance.getPose().getTranslation()) == null){
+			return new Pose2d();
+		} else {
+			return io.getCoralPose(Drive.mInstance.getPose().getTranslation());
+		}
+	}
+
 	public Pose2d getCoralTranslationAndPoint(Translation2d base) {
 		Translation2d t = getCoralPose(base).getTranslation();
 		Rotation2d r = t.minus(Drive.mInstance.getPose().getTranslation()).getAngle();

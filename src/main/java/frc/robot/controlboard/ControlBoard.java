@@ -74,6 +74,8 @@ public class ControlBoard extends SubsystemBase {
 	}
 
 	private Trigger endEffectorTrigger;
+	private Trigger closeCoralTrigger;
+
 	/** <pre>
 	 * Controls:
 	 * </pre> */
@@ -228,11 +230,18 @@ public class ControlBoard extends SubsystemBase {
 																reefIntakeSuperstructure(driver.rightBumper()),
 																reefIntakeDrive(driver.rightBumper()),
 																reefIntakeSetOverrideBehavior(driver.rightBumper())),
-														(tuckCommand)
-																.asProxy()
-																.onlyIf(button.and(
-																		() -> EndEffector.mInstance.getCurrentCommand()
-																				== null)),
+														Commands.either(
+															(tuckCommand)
+																	.asProxy()
+																	.onlyIf(button.and(
+																			() -> EndEffector.mInstance.getCurrentCommand()
+																					== null)),
+															Superstructure.mInstance.coralIntakeToHold()
+																	.asProxy()
+																	.onlyIf(button.and(
+																			() -> EndEffector.mInstance.getCurrentCommand()
+																					== null)),
+															() -> Superstructure.closeCoral.getInverted()),
 														driver.rightBumper()))
 												.asProxy()
 												.withInterruptBehavior(InterruptionBehavior.kCancelIncoming)

@@ -239,7 +239,7 @@ public class Robot extends TimedRobot {
 		Drive.mInstance.setSwerveRequest(new SwerveRequest.ApplyFieldSpeeds());
 		Climber.mInstance.applySetpoint(Climber.CLEAR);
 
-		Detection.mInstance.setPipeline(DetectionMode.TELE.index);
+		// Detection.mInstance.setPipeline(DetectionMode.TELE.index);
 	}
 
 	@Override
