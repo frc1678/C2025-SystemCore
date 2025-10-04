@@ -163,7 +163,7 @@ public final class SuperstructureConstants {
 				return new BeamBreakIOSim(
 						() ->  Detection.mInstance.getCoralPoseWithNullProtection().getTranslation()
 						.getDistance(Drive.mInstance.getPose().getTranslation()) 
-						< Units.Meters.of(2.0).baseUnitMagnitude(),
+						< Units.Meters.of(4.0).baseUnitMagnitude(),
 						Units.Seconds.of(0.5),
 						"Close Coral");
 			} else {
