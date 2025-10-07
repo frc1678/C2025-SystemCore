@@ -25,7 +25,7 @@ public enum Ports {
 	ENCODER_41T(4, "canivore1"),
 	ENCODER_39T(5, "canivore1"),
 
-	PHYSICAL_BUTTON(4, "RioDigitalIn");
+	PHYSICAL_BUTTON(1, "RioDigitalIn");
 
 	public final int id;
 	public final String bus;
