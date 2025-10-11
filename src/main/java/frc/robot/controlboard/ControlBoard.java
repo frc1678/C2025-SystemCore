@@ -74,7 +74,6 @@ public class ControlBoard extends SubsystemBase {
 	}
 
 	private Trigger endEffectorTrigger;
-	private Trigger closeCoralTrigger;
 
 	/** <pre>
 	 * Controls:
