@@ -1,5 +1,6 @@
 package frc.robot.subsystems.superstructure;
 
+import edu.wpi.first.units.BaseUnits;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -15,6 +16,8 @@ import frc.robot.Robot;
 import frc.robot.controlboard.ControlBoardConstants;
 import frc.robot.subsystems.climberrollers.ClimberRollers;
 import frc.robot.subsystems.coralrollers.CoralRollers;
+import frc.robot.subsystems.detection.Detection;
+import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.endeffector.EndEffector;
 import frc.robot.subsystems.pivot.Pivot;
 
@@ -154,7 +157,21 @@ public final class SuperstructureConstants {
 				return new BeamBreakIOSim(() -> true, Units.Seconds.of(0.05), "Pivot Velocity Low");
 			}
 		}
+
+		public static BeamBreakIO getCoralClose() {
+			if (Robot.isReal()) {
+				return new BeamBreakIOSim(
+						() ->  Detection.mInstance.getCoralPoseWithNullProtection().getTranslation()
+						.getDistance(Drive.mInstance.getPose().getTranslation()) 
+						< Units.Meters.of(4.0).baseUnitMagnitude(),
+						Units.Seconds.of(0.5),
+						"Close Coral");
+			} else {
+				return new BeamBreakIOSim(() -> true, Units.Seconds.of(0.5), "Close Coral");
+			}
+		}
 	}
+	
 
 	public static final Angle lookingAwayFromReefAfterL1Threshold = Units.Degrees.of(60.0);
 	public static final Distance farFromReefAfterL1Threshold = Units.Inches.of(76.0);

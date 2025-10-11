@@ -20,12 +20,12 @@ public enum Ports {
 
 	END_EFFECTOR_CORAL_BREAMBREAK(RobotConstants.isComp ? 1 : 5, "RioDigitalIn"),
 	END_EFFECTOR_ALGAE_BEAMBREAK(RobotConstants.isComp ? 0 : 0, "RioDigitalIn"),
-	INDEXER_BEAMBREAK(RobotConstants.isComp ? 8 : 2, "RioDigitalIn"),
+	INDEXER_BEAMBREAK(RobotConstants.isComp ? 8 : 4, "RioDigitalIn"),
 
 	ENCODER_41T(4, "canivore1"),
 	ENCODER_39T(5, "canivore1"),
 
-	PHYSICAL_BUTTON(4, "RioDigitalIn");
+	PHYSICAL_BUTTON(1, "RioDigitalIn");
 
 	public final int id;
 	public final String bus;

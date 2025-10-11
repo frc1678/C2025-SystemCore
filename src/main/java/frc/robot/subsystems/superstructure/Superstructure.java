@@ -66,6 +66,7 @@ public class Superstructure extends SubsystemBase {
 	public static BeamBreakIO climberRollersVelocityDip = BeamBreakConstants.getClimberRollersVelocityDip();
 	public static BeamBreakIO indexerBreak = BeamBreakConstants.getIndexerBeamBreak();
 	public static BeamBreakIO pivotVelocityLow = BeamBreakConstants.getPivotVelocityLow();
+	public static BeamBreakIO closeCoral = BeamBreakConstants.getCoralClose();
 
 	public static BeamBreakIO allAlgae = new BeamBreakIOSim(
 			() -> endEffectorVelocityDip.getDebounced() || endEffectorAlgaeBreak.getDebounced(),
@@ -132,6 +133,7 @@ public class Superstructure extends SubsystemBase {
 		endEffectorVelocityDip.initSendable(builder);
 		coralRollersVelocityDip.initSendable(builder);
 		climberRollersVelocityDip.initSendable(builder);
+		closeCoral.initSendable(builder);
 		pivotVelocityLow.initSendable(builder);
 		allAlgae.initSendable(builder);
 		indexerBreak.initSendable(builder);
