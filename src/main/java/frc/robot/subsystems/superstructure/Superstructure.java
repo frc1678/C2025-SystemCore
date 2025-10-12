@@ -537,7 +537,7 @@ public class Superstructure extends SubsystemBase {
 								.until(() -> elevatorAtOrBelowL2()),
 						MotionPlanner.safePivotAndElevatorToPosition(Pivot.L2_SCORE, Elevator.L2_SCORE),
 						setState(State.L2_CORAL),
-						AlgaeDeploy.mInstance.setpointCommand(AlgaeDeploy.STOW))
+						stowAlgaeIntakeWhenReady())
 				.withName("L2 Prep");
 	}
 
@@ -549,7 +549,7 @@ public class Superstructure extends SubsystemBase {
 						EndEffector.mInstance.setpointCommand(EndEffector.CORAL_HOLD),
 						MotionPlanner.safePivotAndElevatorToPosition(Pivot.L3_SCORE, Elevator.L3_SCORE),
 						setState(State.L3_CORAL),
-						AlgaeDeploy.mInstance.setpointCommand(AlgaeDeploy.STOW))
+						stowAlgaeIntakeWhenReady())
 				.withName("L3 Prep");
 	}
 
@@ -573,7 +573,7 @@ public class Superstructure extends SubsystemBase {
 										.gte(ElevatorConstants.converter.toAngle(
 												ElevatorConstants.kL4PivotClearHeight))),
 						MotionPlanner.safePivotAndElevatorToPosition(Pivot.L4_SCORE, Elevator.L4_SCORE),
-						AlgaeDeploy.mInstance.setpointCommand(AlgaeDeploy.STOW),
+						stowAlgaeIntakeWhenReady(),
 						setState(State.L4_CORAL))
 				.withName("L4 Prep");
 	}
@@ -792,7 +792,7 @@ public class Superstructure extends SubsystemBase {
 	}
 
 	public Command stowAlgaeIntakeWhenReady() {
-		return Commands.sequence(waitUntilVeryFarFromReef(), AlgaeDeploy.mInstance.setpointCommand(AlgaeDeploy.STOW));
+		return Commands.either(AlgaeDeploy.mInstance.setpointCommand(AlgaeDeploy.STOW), Commands.none(), () -> Util.getDistanceFromReef().gte(SuperstructureConstants.kAlgaeIntakeStowReefDistance));
 	}
 
 	public Command stowAlgaeWhenReady() {
