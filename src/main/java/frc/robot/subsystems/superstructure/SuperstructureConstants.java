@@ -240,6 +240,8 @@ public final class SuperstructureConstants {
 	public static final AngularVelocity kEndEffectorVelocityDip = Units.DegreesPerSecond.of(2000);
 
 	public static final Distance kAlgaeStowReefDistance = Units.Meters.of(2.0);
+	public static final Distance kAlgaeIntakeStowReefDistance = Units.Meters.of(4.0);
+
 
 	public static final Time kRecentUpdateTime = Units.Seconds.of(0.1);
 	public static final Distance kNearUpdateDistance = Units.Centimeters.of(2.0);

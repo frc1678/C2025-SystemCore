@@ -234,7 +234,7 @@ public class Superstructure extends SubsystemBase {
 								EndEffector.mInstance.setpointCommand(EndEffector.CORAL_HOLD),
 								MotionPlanner.safePivotAndElevatorToPosition(Pivot.CORAL_HOLD, Elevator.CORAL_HOLD)),
 						setState(State.HOLD_CORAL),
-						AlgaeDeploy.mInstance.setpointCommand(AlgaeDeploy.STOW))
+						stowAlgaeIntakeWhenReady())
 				.withName("Stow Coral Hold");
 	}
 
@@ -791,12 +791,21 @@ public class Superstructure extends SubsystemBase {
 				Set.of(Drive.mInstance)));
 	}
 
+	public Command stowAlgaeIntakeWhenReady() {
+		return Commands.sequence(waitUntilVeryFarFromReef(), AlgaeDeploy.mInstance.setpointCommand(AlgaeDeploy.STOW));
+	}
+
 	public Command stowAlgaeWhenReady() {
 		return Commands.sequence(waitUntilFarFromReef(), algaeStow());
 	}
 
 	public Command waitUntilFarFromReef() {
 		return Commands.waitUntil(() -> Util.getDistanceFromReef().gte(SuperstructureConstants.kAlgaeStowReefDistance)
+				|| Math.abs(Util.getAngleFromReef().getDegrees()) > 90.0);
+	}
+
+	public Command waitUntilVeryFarFromReef() {
+		return Commands.waitUntil(() -> Util.getDistanceFromReef().gte(SuperstructureConstants.kAlgaeIntakeStowReefDistance)
 				|| Math.abs(Util.getAngleFromReef().getDegrees()) > 90.0);
 	}
 
