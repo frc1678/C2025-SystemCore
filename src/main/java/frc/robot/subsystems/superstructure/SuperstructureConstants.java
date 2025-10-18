@@ -221,7 +221,7 @@ public final class SuperstructureConstants {
 
 	public static final Distance kAlgaeOffsetFactor = Units.Centimeters.of(10.0);
 	public static final Distance kAlgaeReadyOffsetFactor = Units.Centimeters.of(20.0);
-	public static final Distance kL4CoralOffsetFactor = Units.Centimeters.of(34.25);
+	public static final Distance kL4CoralOffsetFactor = Units.Centimeters.of(36.25);
 	public static final Distance kL3CoralOffsetFactor = Units.Centimeters.of(30.25);
 	public static final Distance kL2CoralOffsetFactor = Units.Centimeters.of(30.25);
 	public static final Distance kL1CoralOffsetFactor = Units.Centimeters.of(60.0);
@@ -240,6 +240,8 @@ public final class SuperstructureConstants {
 	public static final AngularVelocity kEndEffectorVelocityDip = Units.DegreesPerSecond.of(2000);
 
 	public static final Distance kAlgaeStowReefDistance = Units.Meters.of(2.0);
+	public static final Distance kAlgaeIntakeStowReefDistance = Units.Meters.of(4.0);
+
 
 	public static final Time kRecentUpdateTime = Units.Seconds.of(0.1);
 	public static final Distance kNearUpdateDistance = Units.Centimeters.of(2.0);

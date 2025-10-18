@@ -54,7 +54,7 @@ public class ElevatorConstants {
 	public static final Distance kAlageHoldPosition = Units.Inches.of(19.41);
 	public static final Distance kCoralHoldPosition = Units.Inches.of(13.21);
 	public static final Distance kProcessorScoringHeight = Units.Inches.of(2.0);
-	public static final Distance kL4PivotClearHeight = kL4ScoringHeight.minus(Units.Inches.of(32.0));
+	public static final Distance kL4PivotClearHeight = kL4ScoringHeight.minus(Units.Inches.of(16d));
 	public static final Distance kNetPrepHeight = Units.Inches.of(30.0);
 	public static final Distance kEEUnjameHeight = Units.Inches.of(6.0);
 
