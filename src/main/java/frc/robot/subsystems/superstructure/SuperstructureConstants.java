@@ -221,7 +221,7 @@ public final class SuperstructureConstants {
 
 	public static final Distance kAlgaeOffsetFactor = Units.Centimeters.of(10.0);
 	public static final Distance kAlgaeReadyOffsetFactor = Units.Centimeters.of(20.0);
-	public static final Distance kL4CoralOffsetFactor = Units.Centimeters.of(34.25);
+	public static final Distance kL4CoralOffsetFactor = Units.Centimeters.of(36.25);
 	public static final Distance kL3CoralOffsetFactor = Units.Centimeters.of(30.25);
 	public static final Distance kL2CoralOffsetFactor = Units.Centimeters.of(30.25);
 	public static final Distance kL1CoralOffsetFactor = Units.Centimeters.of(60.0);
