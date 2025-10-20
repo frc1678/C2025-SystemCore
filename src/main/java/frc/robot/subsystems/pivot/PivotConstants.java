@@ -36,6 +36,7 @@ public class PivotConstants {
 	public static final Angle kAutoStart = Units.Degrees.of(90.0);
 
 	public static final Angle kCoralIntake = Robot.isReal() ? Units.Degrees.of(-90.0) : Units.Degrees.of(0.0);
+	public static final Angle kQuickCoralIntake = Units.Degrees.of(-5.0);
 	public static final Angle kAlgaeIntake = Units.Degrees.of(-90.0);
 	public static final Angle kReefIntake = Units.Degrees.of(-100.0);
 	public static final Angle kReefPrep = Units.Degrees.of(-60.0);

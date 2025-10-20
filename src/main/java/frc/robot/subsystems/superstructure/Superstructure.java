@@ -392,6 +392,27 @@ public class Superstructure extends SubsystemBase {
 				});
 	}
 
+	public Command coralIntakeToEndEffectorInAuto() {
+		return Commands.sequence(
+						Commands.parallel(
+								setState(State.GROUND_CORAL),
+								/*Start spinning EE immediatly in case one stuck half on 
+								  EE so it just goes on and asserts */
+								EndEffector.mInstance.setpointCommand(EndEffector.CORAL_FEED), 
+								CoralDeploy.mInstance.setpointCommand(CoralDeploy.DEPLOY),
+								CoralRollers.mInstance.setpointCommand(CoralRollers.INTAKE)),
+						Commands.sequence(
+								MotionPlanner.quickElevatorAndPivotToIntake(),
+								CoralIndexer.mInstance.setpointCommand(CoralIndexer.INTAKE)))
+				.withDeadline(endEffectorCoralBreak.stateWaitWithDebounceIfReal(true, 1.5))
+				.finallyDo(() -> {
+					CoralRollers.mInstance.applySetpoint(CoralRollers.IDLE);
+					CoralIndexer.mInstance.applySetpoint(CoralIndexer.IDLE);
+					EndEffector.mInstance.applySetpoint(EndEffector.CORAL_HOLD);
+					CoralDeploy.mInstance.applySetpoint(CoralDeploy.EXHAUST);
+				});
+	}
+
 	public Command coralIntaketoIndexer() {
 		return Commands.sequence(
 						Commands.parallel(
