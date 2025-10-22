@@ -144,7 +144,7 @@ public class PivotConstants {
 	public static CANcoderConfiguration getGeared39TCancoderConfig() {
 		CANcoderConfiguration config = new CANcoderConfiguration();
 		config.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 0.5;
-		config.MagnetSensor.MagnetOffset = (0.424072) - 0.25;
+		config.MagnetSensor.MagnetOffset = (0.453613) - 0.25;
 		config.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
 		return config;
 	}
@@ -152,7 +152,7 @@ public class PivotConstants {
 	public static CANcoderConfiguration getDirect41TCancoderConfig() {
 		CANcoderConfiguration config = new CANcoderConfiguration();
 		config.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 0.5;
-		config.MagnetSensor.MagnetOffset = (0.339111) - 0.25;
+		config.MagnetSensor.MagnetOffset = (0.344727) - 0.25;
 		config.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
 		return config;
 	}
