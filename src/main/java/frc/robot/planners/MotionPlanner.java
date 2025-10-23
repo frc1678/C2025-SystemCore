@@ -392,4 +392,15 @@ public class MotionPlanner {
 			.lte(ElevatorConstants.converter.toAngle(ElevatorConstants.kClearLowPosition)) 
 			&& Pivot.mInstance.getPosition().gte(PivotConstants.kQuickCoralIntake);
 	}
+	
+
+	public static Command quickElevatorAndPivotToL4(){
+		return Commands.parallel(
+			Pivot.mInstance.setpointCommandWithWait(Pivot.CORAL_INTAKE),
+			Commands.sequence(
+				Commands.waitUntil(() -> Pivot.mInstance.nearPosition(PivotConstants.kCoralImpactAngle)),
+				Elevator.mInstance.setpointCommandWithWait(Elevator.STOW)
+			)
+		);
+	}
 }

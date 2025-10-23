@@ -515,6 +515,13 @@ public class Superstructure extends SubsystemBase {
 				.withName("L4 Score When Ready");
 	}
 
+	public Command QuickL4ScoreInAuto() {
+		return Commands.sequence(QuickL4Prep(), waitUntilDriveReadyToScoreAndStable())
+				.withTimeout(Units.Seconds.of(2.5))
+				.andThen(coralScore(Level.L4))
+				.withName("L4 Score When Ready");
+	}
+
 	public Command L3ScoreInAuto() {
 		return Commands.sequence(L3Prep(), waitUntilDriveReadyToScoreAndStable())
 				.withTimeout(Units.Seconds.of(2.5))
@@ -595,6 +602,27 @@ public class Superstructure extends SubsystemBase {
 												ElevatorConstants.kL4PivotClearHeight))),
 						MotionPlanner.safePivotAndElevatorToPosition(Pivot.L4_SCORE, Elevator.L4_SCORE),
 						stowAlgaeIntakeWhenReady(),
+						setState(State.L4_CORAL))
+				.withName("L4 Prep");
+	}
+
+	public Command QuickL4Prep() {
+		return Commands.sequence(
+						Commands.parallel(
+								EndEffector.mInstance.setpointCommand(EndEffector.CORAL_HOLD),
+								MotionPlanner.safePivotAndElevatorToPosition(Pivot.CORAL_HOLD, Elevator.L4_CLEAR)
+										.onlyIf(() -> !getPivotNearOrAboveHoldPosition())
+										.onlyWhile(() -> !getPivotNearOrAboveHoldPosition())),
+						MotionPlanner.safePivotAndElevatorToPosition(Pivot.QUICK_L4_CORAL_HOLD, Elevator.L4_SCORE)
+								.until(() -> Elevator.mInstance
+										.getPosition()
+										.gte(ElevatorConstants.converter.toAngle(
+												ElevatorConstants.kL4PivotClearHeight)))
+								.unless(() -> Elevator.mInstance
+										.getPosition()
+										.gte(ElevatorConstants.converter.toAngle(
+												ElevatorConstants.kL4PivotClearHeight))),
+						MotionPlanner.safePivotAndElevatorToPosition(Pivot.L4_SCORE, Elevator.L4_SCORE),
 						setState(State.L4_CORAL))
 				.withName("L4 Prep");
 	}

@@ -396,24 +396,29 @@ public class ControlBoard extends SubsystemBase {
 				.onFalse(Elevator.mInstance
 						.setpointCommand(Elevator.HOLD_UP)
 						.andThen(() -> Elevator.mInstance.useSoftLimits(true)));
-		operator.rightTrigger(0.1)
-				.onTrue(Elevator.mInstance
-						.setpointCommand(Elevator.JOG_DOWN)
-						.andThen(() -> Elevator.mInstance.useSoftLimits(false)))
-				.onFalse(Elevator.mInstance
-						.setpointCommand(Elevator.HOLD_UP)
-						.andThen(() -> Elevator.mInstance.useSoftLimits(true)));
+		// operator.rightTrigger(0.1)
+		// 		.onTrue(Elevator.mInstance
+		// 				.setpointCommand(Elevator.JOG_DOWN)
+		// 				.andThen(() -> Elevator.mInstance.useSoftLimits(false)))
+		// 		.onFalse(Elevator.mInstance
+		// 				.setpointCommand(Elevator.HOLD_UP)
+		// 				.andThen(() -> Elevator.mInstance.useSoftLimits(true)));
 
-		operator.pov(POVDirection.Up).onTrue(ClimberRollers.mInstance.setpointCommand(ClimberRollers.INTAKE));
+		// operator.pov(POVDirection.Up).onTrue(ClimberRollers.mInstance.setpointCommand(ClimberRollers.INTAKE));
 
-		operator.pov(POVDirection.Down).onTrue(ClimberRollers.mInstance.setpointCommand(ClimberRollers.IDLE));
+		// operator.pov(POVDirection.Down).onTrue(ClimberRollers.mInstance.setpointCommand(ClimberRollers.IDLE));
 
 		operator.leftBumper()
 				.onTrue(new InstantCommand(() -> Pivot.mInstance.setCurrentPosition(
 								Pivot.mInstance.directCancoder.getPosition().getValue()))
 						.ignoringDisable(true));
 
-		operator.leftTrigger(0.1).onTrue(Elevator.mInstance.setpointCommand(Elevator.CLEAR_HIGH_HEIGHT));
+		// operator.leftTrigger(0.1).onTrue(Elevator.mInstance.setpointCommand(Elevator.CLEAR_HIGH_HEIGHT));
+		operator.pov(POVDirection.Up).onTrue(AlgaeDeploy.mInstance.setpointCommand(AlgaeDeploy.FAR_CLEAR));
+		operator.pov(POVDirection.Down).onTrue(Elevator.mInstance.setpointCommand(Elevator.L4_SCORE));
+		operator.pov(POVDirection.Left).onTrue(Pivot.mInstance.setpointCommand(Pivot.L4_SCORE));		
+		operator.leftTrigger(0.1).onTrue(Superstructure.mInstance.QuickL4Prep());
+		operator.rightTrigger(0.1).onTrue(Superstructure.mInstance.coralIntakeToEndEffectorInAuto());
 
 		operator.back()
 				.onTrue(Commands.sequence(

@@ -306,6 +306,32 @@ public class AutoModeBase {
 		return intakeAndScoreGroundCoral(trajName, wantedBranch, wantedLevel, false);
 	}
 
+	public static Command intakeAndScoreGroundCoralQuick(
+			String trajName, Branch wantedBranch, Level wantedLevel, boolean useTraj) {
+		Superstructure s = Superstructure.mInstance;
+
+		AutoTrajectory start = routine.trajectory(trajName, 0);
+		AutoTrajectory intake = routine.trajectory(trajName, 1);
+
+		return Commands.sequence(
+				Commands.deadline(start.cmd(), s.coralIntakeToEndEffectorInAuto().asProxy()),
+				Commands.deadline(
+						s.coralIntakeToEndEffectorInAuto().asProxy(),
+						new DetectionPIDToPoseCommand(intake, side)
+								.andThen(Commands.either(
+												AutoHelpers.getAutoScoreTrajectoryFromDrivePose(
+														wantedBranch, wantedLevel),
+												AutoHelpers.getAutoScorePathFromDrivePose(wantedBranch, wantedLevel),
+												() -> useTraj)
+										.until(() -> Detection.mInstance.hasCoral())
+										.withTimeout(Units.Seconds.of(0.8)))
+								.repeatedly()),
+				Commands.either(
+						autoScoreWithPrepFromTraj(wantedBranch, wantedLevel),
+						autoScoreWithPrep(wantedBranch, wantedLevel),
+						() -> useTraj));
+	}
+
 	public static Command intakeAndScoreMark(
 			String intakeTrajName, Branch wantedBranch, Level wantedLevel, boolean useTraj) {
 		Superstructure s = Superstructure.mInstance;
