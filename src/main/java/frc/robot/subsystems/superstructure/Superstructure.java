@@ -396,6 +396,7 @@ public class Superstructure extends SubsystemBase {
 		return Commands.sequence(
 						Commands.parallel(
 								setState(State.GROUND_CORAL),
+								AlgaeDeploy.mInstance.setpointCommand(AlgaeDeploy.FAR_CLEAR),
 								/*Start spinning EE immediatly in case one stuck half on 
 								  EE so it just goes on and asserts */
 								EndEffector.mInstance.setpointCommand(EndEffector.CORAL_FEED), 
