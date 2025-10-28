@@ -252,6 +252,7 @@ public final class SuperstructureConstants {
 			case L2 -> kL2ScoringDistanceEpsilon;
 			case L3 -> kL3ScoringDistanceEpsilon;
 			case L4 -> kL4ScoringDistanceEpsilon;
+			case L4_QUICK -> kL4ScoringDistanceEpsilon;
 			case PROCESSOR_ALGAE -> kProcessorAlgaeScoringDistanceEpsilon;
 			case NET -> kNetScoringDistanceEpsilon;
 			default -> kReefScoringDistanceEpsilon;
@@ -264,6 +265,7 @@ public final class SuperstructureConstants {
 			case L2 -> kL2ScoringAngleEpsilon;
 			case L3 -> kL3ScoringAngleEpsilon;
 			case L4 -> kL4ScoringAngleEpsilon;
+			case L4_QUICK -> kL4ScoringAngleEpsilon;
 			case PROCESSOR_ALGAE -> kProcessorAlgaeScoringAngleEpsilon;
 			case NET -> kNetScoringAngleEpsilon;
 			default -> kReefScoringAngleEpsilon;
@@ -276,6 +278,7 @@ public final class SuperstructureConstants {
 			case L2 -> kL2ScoringDelay;
 			case L3 -> kL3ScoringDelay;
 			case L4 -> kL4ScoringDelay;
+			case L4_QUICK -> kL4ScoringDelay;
 			case PROCESSOR_ALGAE -> kProcessorAlgaeScoringDelay;
 			case NET -> kNetScoringDelay;
 			default -> kReefScoringDelay;
@@ -287,6 +290,7 @@ public final class SuperstructureConstants {
 			case L2 -> kL2LookaheadTime;
 			case L3 -> kL3LookaheadTime;
 			case L4 -> kL4LookaheadTime;
+			case L4_QUICK -> kL4LookaheadTime;
 			case PROCESSOR_ALGAE -> kProcessorAlgaeLookaheadTime;
 			default -> kReefLookaheadTime;
 		};
@@ -297,6 +301,7 @@ public final class SuperstructureConstants {
 			case L2 -> kL2HeadingGenerationDeadband;
 			case L3 -> kL3HeadingGenerationDeadband;
 			case L4 -> kL4HeadingGenerationDeadband;
+			case L4_QUICK -> kL4HeadingGenerationDeadband;
 			case PROCESSOR_ALGAE -> kProcessorAlgaeHeadingGenerationDeadband;
 			default -> kReefHeadingGenerationDeadband;
 		};
@@ -312,6 +317,7 @@ public final class SuperstructureConstants {
 	public static Distance getGamepieceOffsetFactor(Level level) {
 		return switch (level) {
 			case L4 -> SuperstructureConstants.kL4CoralOffsetFactor;
+			case L4_QUICK -> SuperstructureConstants.kL4CoralOffsetFactor;
 			case L3 -> SuperstructureConstants.kL3CoralOffsetFactor;
 			case L2 -> SuperstructureConstants.kL2CoralOffsetFactor;
 			case L1 -> SuperstructureConstants.kL1CoralOffsetFactor;

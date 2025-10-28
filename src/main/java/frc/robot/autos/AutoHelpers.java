@@ -72,6 +72,7 @@ public class AutoHelpers {
 					case L2 -> s.L2ScoreInAuto();
 					case L3 -> s.L3ScoreInAuto();
 					case L4 -> s.L4ScoreInAuto();
+					case L4_QUICK -> s.QuickL4ScoreInAuto();
 					default -> s.L4ScoreInAuto();
 				};
 		return scoreCommand.asProxy();

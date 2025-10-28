@@ -611,10 +611,10 @@ public class Superstructure extends SubsystemBase {
 		return Commands.sequence(
 						Commands.parallel(
 								EndEffector.mInstance.setpointCommand(EndEffector.CORAL_HOLD),
-								MotionPlanner.safePivotAndElevatorToPosition(Pivot.CORAL_HOLD, Elevator.L4_CLEAR)
+								MotionPlanner.safePivotAndElevatorToPosition(Pivot.QUICK_L4_CORAL_HOLD, Elevator.L4_CLEAR)
 										.onlyIf(() -> !getPivotNearOrAboveHoldPosition())
 										.onlyWhile(() -> !getPivotNearOrAboveHoldPosition())),
-						MotionPlanner.safePivotAndElevatorToPosition(Pivot.QUICK_L4_CORAL_HOLD, Elevator.L4_SCORE)
+						MotionPlanner.safePivotAndElevatorToPosition(Pivot.CORAL_HOLD, Elevator.L4_SCORE)
 								.until(() -> Elevator.mInstance
 										.getPosition()
 										.gte(ElevatorConstants.converter.toAngle(

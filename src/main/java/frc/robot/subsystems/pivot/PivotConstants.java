@@ -47,7 +47,7 @@ public class PivotConstants {
 
 	public static final Angle kAlgaeHold = Units.Degrees.of(-120.0);
 	public static final Angle kCoralHold = Units.Degrees.of(60.0);
-	public static final Angle kL4QuickCoralHold = Units.Degrees.of(90.0);
+	public static final Angle kL4QuickCoralHold = Units.Degrees.of(125.0);
 
 
 	public static final Angle kClimb = Units.Degrees.of(130.0);
