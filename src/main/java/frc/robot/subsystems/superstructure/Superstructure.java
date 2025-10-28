@@ -392,6 +392,28 @@ public class Superstructure extends SubsystemBase {
 				});
 	}
 
+	public Command coralIntakeToEndEffectorInAuto() {
+		return Commands.sequence(
+						Commands.parallel(
+								setState(State.GROUND_CORAL),
+								AlgaeDeploy.mInstance.setpointCommand(AlgaeDeploy.FAR_CLEAR),
+								/*Start spinning EE immediatly in case one stuck half on 
+								  EE so it just goes on and asserts */
+								EndEffector.mInstance.setpointCommand(EndEffector.CORAL_FEED), 
+								CoralDeploy.mInstance.setpointCommand(CoralDeploy.DEPLOY),
+								CoralRollers.mInstance.setpointCommand(CoralRollers.INTAKE)),
+						Commands.sequence(
+								MotionPlanner.quickElevatorAndPivotToIntake(),
+								CoralIndexer.mInstance.setpointCommand(CoralIndexer.INTAKE)))
+				.withDeadline(endEffectorCoralBreak.stateWaitWithDebounceIfReal(true, 1.5))
+				.finallyDo(() -> {
+					CoralRollers.mInstance.applySetpoint(CoralRollers.IDLE);
+					CoralIndexer.mInstance.applySetpoint(CoralIndexer.IDLE);
+					EndEffector.mInstance.applySetpoint(EndEffector.CORAL_HOLD);
+					CoralDeploy.mInstance.applySetpoint(CoralDeploy.EXHAUST);
+				});
+	}
+
 	public Command coralIntaketoIndexer() {
 		return Commands.sequence(
 						Commands.parallel(
@@ -494,6 +516,13 @@ public class Superstructure extends SubsystemBase {
 				.withName("L4 Score When Ready");
 	}
 
+	public Command QuickL4ScoreInAuto() {
+		return Commands.sequence(QuickL4Prep(), waitUntilDriveReadyToScoreAndStable())
+				.withTimeout(Units.Seconds.of(2.5))
+				.andThen(coralScore(Level.L4))
+				.withName("L4 Score When Ready");
+	}
+
 	public Command L3ScoreInAuto() {
 		return Commands.sequence(L3Prep(), waitUntilDriveReadyToScoreAndStable())
 				.withTimeout(Units.Seconds.of(2.5))
@@ -574,6 +603,27 @@ public class Superstructure extends SubsystemBase {
 												ElevatorConstants.kL4PivotClearHeight))),
 						MotionPlanner.safePivotAndElevatorToPosition(Pivot.L4_SCORE, Elevator.L4_SCORE),
 						stowAlgaeIntakeWhenReady(),
+						setState(State.L4_CORAL))
+				.withName("L4 Prep");
+	}
+
+	public Command QuickL4Prep() {
+		return Commands.sequence(
+						Commands.parallel(
+								EndEffector.mInstance.setpointCommand(EndEffector.CORAL_HOLD),
+								MotionPlanner.safePivotAndElevatorToPosition(Pivot.CORAL_HOLD, Elevator.L4_CLEAR)
+										.onlyIf(() -> !getPivotNearOrAboveHoldPosition())
+										.onlyWhile(() -> !getPivotNearOrAboveHoldPosition())),
+						MotionPlanner.safePivotAndElevatorToPosition(Pivot.QUICK_L4_CORAL_HOLD, Elevator.L4_SCORE)
+								.until(() -> Elevator.mInstance
+										.getPosition()
+										.gte(ElevatorConstants.converter.toAngle(
+												ElevatorConstants.kL4PivotClearHeight)))
+								.unless(() -> Elevator.mInstance
+										.getPosition()
+										.gte(ElevatorConstants.converter.toAngle(
+												ElevatorConstants.kL4PivotClearHeight))),
+						MotionPlanner.safePivotAndElevatorToPosition(Pivot.L4_SCORE, Elevator.L4_SCORE),
 						setState(State.L4_CORAL))
 				.withName("L4 Prep");
 	}

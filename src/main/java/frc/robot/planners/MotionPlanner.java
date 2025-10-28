@@ -369,4 +369,38 @@ public class MotionPlanner {
 				// Climber.mInstance.setpointCommandWithWait(Climber.STOW),
 				Commands.defer(supplier, Set.of(Elevator.mInstance, Pivot.mInstance)));
 	}
+
+	public static Command quickElevatorAndPivotToIntake(){
+		return Commands.sequence(
+			Commands.race(
+				Commands.parallel(
+				Pivot.mInstance.setpointCommand(Pivot.CORAL_INTAKE),
+				Elevator.mInstance.setpointCommandWithWait(Elevator.STOW)),
+				Commands.waitUntil(() -> quickPivotNotClear())
+			),
+			Commands.either( 
+				Commands.sequence(
+					Pivot.mInstance.setpointCommandWithWait(Pivot.CORAL_INTAKE),
+					Elevator.mInstance.setpointCommandWithWait(Elevator.CORAL_HOLD)),
+				Commands.none(),
+				() -> quickPivotNotClear())
+		);
+	}
+
+	public static boolean quickPivotNotClear(){
+		return Elevator.mInstance.getPosition()
+			.lte(ElevatorConstants.converter.toAngle(ElevatorConstants.kClearLowPosition)) 
+			&& Pivot.mInstance.getPosition().gte(PivotConstants.kQuickCoralIntake);
+	}
+	
+
+	public static Command quickElevatorAndPivotToL4(){
+		return Commands.parallel(
+			Pivot.mInstance.setpointCommandWithWait(Pivot.CORAL_INTAKE),
+			Commands.sequence(
+				Commands.waitUntil(() -> Pivot.mInstance.nearPosition(PivotConstants.kCoralImpactAngle)),
+				Elevator.mInstance.setpointCommandWithWait(Elevator.STOW)
+			)
+		);
+	}
 }

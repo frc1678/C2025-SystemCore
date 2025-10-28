@@ -10,6 +10,7 @@ import frc.robot.autos.detection.Detection2BA;
 import frc.robot.autos.detection.DetectionE2CD;
 import frc.robot.autos.detection.DetectionEDCBA;
 import frc.robot.autos.detection.DetectionFCDE;
+import frc.robot.autos.detection.DetectionILKAB;
 import frc.robot.autos.detection.DetectionILKJ;
 import frc.robot.autos.detection.DetectionJ2LK;
 import frc.robot.autos.detection.DetectionJKLAB;
@@ -44,6 +45,8 @@ public class AutoModeSelector {
 		mAutoChooser.addRoutine(
 				"[LEFT] Detection ILKJ Ground Algae Drive",
 				() -> new DetectionILKJ(factory, AutoEndBehavior.ALGAE_DRIVE).getRoutine());
+
+		mAutoChooser.addRoutine("[TEST] Detection ILKAB", () -> new DetectionILKAB(factory).getRoutine());
 
 		mAutoChooser.addRoutine("[ARCHIVE, RIGHT] Human EDC", () -> new HumanEDC(factory).getRoutine());
 		mAutoChooser.addRoutine("[ARCHIVE, LEFT] Human JKL", () -> new HumanJKL(factory).getRoutine());

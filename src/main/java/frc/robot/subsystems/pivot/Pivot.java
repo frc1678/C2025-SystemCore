@@ -41,6 +41,7 @@ public class Pivot extends ServoMotorSubsystem<MotorIOTalonFX> {
 
 	public static final Setpoint ALGAE_HOLD = Setpoint.withMotionMagicSetpoint(PivotConstants.kAlgaeHold);
 	public static final Setpoint CORAL_HOLD = Setpoint.withMotionMagicSetpoint(PivotConstants.kCoralHold);
+	public static final Setpoint QUICK_L4_CORAL_HOLD = Setpoint.withMotionMagicSetpoint(PivotConstants.kL4QuickCoralHold);
 
 	public static final Setpoint CLIMB = Setpoint.withMotionMagicSetpoint(PivotConstants.kClimb);
 

@@ -43,7 +43,7 @@ public final class AutoConstants {
 				0.0, // Integral
 				0.0 // Derivative
 				);
-		controller.setMaxAbsoluteOutput(DriveConstants.kMaxSpeed.times(0.3).in(Units.MetersPerSecond));
+		controller.setMaxAbsoluteOutput(DriveConstants.kMaxSpeed.times(0.5).in(Units.MetersPerSecond));
 		return controller;
 	}
 

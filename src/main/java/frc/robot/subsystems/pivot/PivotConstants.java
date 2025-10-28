@@ -36,6 +36,7 @@ public class PivotConstants {
 	public static final Angle kAutoStart = Units.Degrees.of(90.0);
 
 	public static final Angle kCoralIntake = Robot.isReal() ? Units.Degrees.of(-90.0) : Units.Degrees.of(0.0);
+	public static final Angle kQuickCoralIntake = Units.Degrees.of(-5.0);
 	public static final Angle kAlgaeIntake = Units.Degrees.of(-90.0);
 	public static final Angle kReefIntake = Units.Degrees.of(-100.0);
 	public static final Angle kReefPrep = Units.Degrees.of(-60.0);
@@ -46,6 +47,8 @@ public class PivotConstants {
 
 	public static final Angle kAlgaeHold = Units.Degrees.of(-120.0);
 	public static final Angle kCoralHold = Units.Degrees.of(60.0);
+	public static final Angle kL4QuickCoralHold = Units.Degrees.of(90.0);
+
 
 	public static final Angle kClimb = Units.Degrees.of(130.0);
 
@@ -143,7 +146,7 @@ public class PivotConstants {
 	public static CANcoderConfiguration getGeared39TCancoderConfig() {
 		CANcoderConfiguration config = new CANcoderConfiguration();
 		config.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 0.5;
-		config.MagnetSensor.MagnetOffset = (-0.002441) - 0.25;
+		config.MagnetSensor.MagnetOffset = (0.477051) - 0.25;
 		config.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
 		return config;
 	}
@@ -151,7 +154,7 @@ public class PivotConstants {
 	public static CANcoderConfiguration getDirect41TCancoderConfig() {
 		CANcoderConfiguration config = new CANcoderConfiguration();
 		config.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 0.5;
-		config.MagnetSensor.MagnetOffset = (0.056396) - 0.25;
+		config.MagnetSensor.MagnetOffset = (0.340332) - 0.25;
 		config.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
 		return config;
 	}

@@ -24,7 +24,7 @@ public class AlgaeDeployConstants {
 	public static final double kGearing = (62.0 / 8.0) * (68.0 / 18.0) * (15.0 / 9.0);
 
 	public static final Angle kStowPosition = Units.Degrees.of(90.0);
-	public static final Angle kClearPosition = Units.Degrees.of(65.0);
+	public static final Angle kClearPosition = Units.Degrees.of(60.0);
 	public static final Angle kAlgaeClearPosition =
 			Units.Degree.of(40.0); // Positon that allows pivot to come down to processor score while holding algae
 	public static final Angle kDeployPosition = Units.Degrees.of(23.0);
