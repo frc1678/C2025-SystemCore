@@ -25,6 +25,16 @@ public final class AutoConstants {
 		return controller;
 	}
 
+	public static SynchronousPIDF getDetectionQuickTranslationController() {
+		SynchronousPIDF controller = new SynchronousPIDF(
+				3.0, // Proportional
+				0.0, // Integral
+				0.0 // Derivative
+				);
+		controller.setMaxAbsoluteOutput(DriveConstants.kMaxSpeed.times(1.0).in(Units.MetersPerSecond));
+		return controller;
+	}
+
 	public static SynchronousPIDF getDetectionHeadingController() {
 		SynchronousPIDF controller = new SynchronousPIDF(
 				5.25, // Proportional

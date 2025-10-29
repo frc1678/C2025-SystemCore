@@ -310,10 +310,10 @@ public class AutoModeBase {
 		AutoTrajectory intake = routine.trajectory(trajName, 1);
 
 		return Commands.sequence(
-				Commands.deadline(start.cmd(), s.coralIntakeToEndEffectorInAuto().asProxy()),
+				Commands.deadline(start.cmd(), s.tuck().asProxy()),
 				Commands.deadline(
-						s.coralIntakeToEndEffectorInAuto().asProxy(),
-						new DetectionPIDToPoseCommand(intake, side)
+						s.coralIntakeToEndEffector().asProxy(),
+						new DetectionPIDToPoseCommand(intake, side, true)
 								.andThen(Commands.either(
 												AutoHelpers.getAutoScoreTrajectoryFromDrivePose(
 														wantedBranch, wantedLevel),

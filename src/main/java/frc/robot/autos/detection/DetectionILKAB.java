@@ -31,9 +31,9 @@ public class DetectionILKAB extends AutoModeBase {
 						.cmd()
 						.alongWith(d.setPipelineCmd(DetectionConstants.kAutoPipeline))
 						.andThen(autoScoreWithPrepWithoutCoralHold(Branch.I, Level.L4)),
-				intakeAndScoreGroundCoral("iToDetection", Branch.L, Level.L4_QUICK, false),
-				intakeAndScoreGroundCoral("lToDetection", Branch.K, Level.L4_QUICK, false),
-				intakeAndScoreGroundCoral("kToDetection", Branch.A, Level.L4_QUICK, true),
+				intakeAndScoreGroundCoralQuick("iToDetection", Branch.L, Level.L4_QUICK, false),
+				intakeAndScoreGroundCoralQuick("lToDetection", Branch.K, Level.L4_QUICK, false),
+				intakeAndScoreGroundCoralQuick("kToDetection", Branch.A, Level.L4_QUICK, true),
 				intakeAndScoreMark("aToMidMark", Branch.B, Level.L4, false));
 	}
 }

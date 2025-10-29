@@ -31,9 +31,13 @@ public class DetectionPIDToPoseCommand extends PIDToPoseCommand {
 			new MovingAveragePose2d(15); // more likely to trust new poses but still keeps track of a few older ones
 
 	public DetectionPIDToPoseCommand(Pose2d defaultFinalPose, AutoType side) {
+		this(defaultFinalPose, side, false);
+	}
+
+	public DetectionPIDToPoseCommand(Pose2d defaultFinalPose, AutoType side, boolean quick) {
 		super(
 				defaultFinalPose,
-				AutoConstants.getDetectionTranslationController(),
+				quick ? AutoConstants.getDetectionQuickTranslationController() : AutoConstants.getDetectionTranslationController(),
 				AutoConstants.getDetectionHeadingController());
 		this.defaultFinalPose = defaultFinalPose;
 		this.side = side;
@@ -41,8 +45,13 @@ public class DetectionPIDToPoseCommand extends PIDToPoseCommand {
 		this.epsilonAngle = Units.Degrees.of(4.0);
 	}
 
+
 	public DetectionPIDToPoseCommand(AutoTrajectory trajectory, AutoType side) {
-		this(trajectory.getFinalPose().get(), side);
+		this(trajectory.getFinalPose().get(), side, false);
+	}
+
+	public DetectionPIDToPoseCommand(AutoTrajectory trajectory, AutoType side, boolean quick) {
+		this(trajectory.getFinalPose().get(), side, quick);
 	}
 
 	@Override
