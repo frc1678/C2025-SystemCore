@@ -200,9 +200,7 @@ public class AutoModeBase {
 						Commands.sequence(
 								Commands.deadline(
 										Superstructure.mInstance.waitToStartScoreSequence(),
-										Superstructure.mInstance
-												.stowCoralHold()
-												.asProxy()
+										AutoHelpers.getCoralStowForLevel(wantedLevel)
 												.alongWith(Superstructure.mInstance
 														.exhaustCoralIntake()
 														.asProxy())
@@ -258,9 +256,7 @@ public class AutoModeBase {
 						Commands.sequence(
 								Commands.deadline(
 										Superstructure.mInstance.waitToStartScoreSequence(),
-										Superstructure.mInstance
-												.stowCoralHold()
-												.asProxy()
+										AutoHelpers.getCoralStowForLevel(wantedLevel)
 												.alongWith(Superstructure.mInstance
 														.exhaustCoralIntake()
 														.asProxy())

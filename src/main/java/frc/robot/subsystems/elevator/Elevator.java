@@ -45,6 +45,8 @@ public class Elevator extends ServoMotorSubsystem<MotorIOTalonFX> {
 			Setpoint.withMotionMagicSetpoint(ElevatorConstants.converter.toAngle(ElevatorConstants.kAlageHoldPosition));
 	public static final Setpoint CORAL_HOLD =
 			Setpoint.withMotionMagicSetpoint(ElevatorConstants.converter.toAngle(ElevatorConstants.kCoralHoldPosition));
+	public static final Setpoint QUICK_CORAL_HOLD =
+			Setpoint.withMotionMagicSetpoint(ElevatorConstants.converter.toAngle(ElevatorConstants.kQuickCoralHoldPosition));
 	public static final Setpoint STOW =
 			Setpoint.withMotionMagicSetpoint(ElevatorConstants.converter.toAngle(ElevatorConstants.kStowPosition));
 	public static final Setpoint CLIMB =

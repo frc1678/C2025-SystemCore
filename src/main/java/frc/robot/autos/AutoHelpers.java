@@ -78,6 +78,17 @@ public class AutoHelpers {
 		return scoreCommand.asProxy();
 	}
 
+	public static Command getCoralStowForLevel(Level level) {
+		Superstructure s = Superstructure.mInstance;
+		Command holdCommand =
+				switch (level) {
+					case L2, L3, L4 -> s.stowCoralHold();
+					case L4_QUICK -> s.quickStowCoralHold();
+					default -> s.stowCoralHold();
+				};
+		return holdCommand.asProxy();
+	}
+
 	public static Command resetPoseIfWithoutEstimate(Pose2d pose) {
 		return Commands.runOnce(() -> Drive.mInstance.resetPose(pose));
 	}
