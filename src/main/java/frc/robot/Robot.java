@@ -9,6 +9,8 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.hal.AllianceStationID;
 import edu.wpi.first.units.Units;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -65,6 +67,12 @@ public class Robot extends TimedRobot {
 	public static final Stopwatch autoTimer = new Stopwatch();
 
 	private long disabledLoopCount = 0;
+	private long lowBatteryLoopCount = 0; 
+	private Timer disabledTimer = new Timer(); 
+
+	  private final Alert lowBatteryAlert =
+      new Alert("Battery voltage is very low!!! Power off and replace battery.",
+          AlertType.kWarning);
 
 	public Robot() {
 		RobotConstants.mAutoFactory = new AutoFactory(
@@ -160,6 +168,17 @@ public class Robot extends TimedRobot {
 		} catch (Exception e) {
 			SmartDashboard.putString("Logged Robot/Latest Error", e.getMessage());
 		}
+
+		lowBatteryLoopCount += 1; 
+		if(DriverStation.isEnabled()) {
+			disabledTimer.reset();
+		}
+
+		if(RobotController.getBatteryVoltage() <= RobotConstants.lowBatteryVoltage
+			&& disabledTimer.hasElapsed(RobotConstants.kBatteryAlertDisabledTime.in(Units.Seconds))
+			&& lowBatteryLoopCount >= RobotConstants.kLowBatteryMinLoopCount) {
+				lowBatteryAlert.set(true); 
+			}
 	}
 
 	@Override
