@@ -238,6 +238,16 @@ public class Superstructure extends SubsystemBase {
 				.withName("Stow Coral Hold");
 	}
 
+	public Command quickStowCoralHold() {
+		return Commands.sequence(
+						Commands.parallel(
+								EndEffector.mInstance.setpointCommand(EndEffector.CORAL_HOLD),
+								MotionPlanner.safePivotAndElevatorToPosition(Pivot.CORAL_HOLD, Elevator.QUICK_CORAL_HOLD)),
+						setState(State.HOLD_CORAL),
+						stowAlgaeIntakeWhenReady())
+				.withName("Stow Coral Hold");
+	}
+
 	/**
 	 * Stows every subsystem
 	 */
@@ -614,7 +624,7 @@ public class Superstructure extends SubsystemBase {
 								MotionPlanner.safePivotAndElevatorToPosition(Pivot.CORAL_HOLD, Elevator.L4_CLEAR)
 										.onlyIf(() -> !getPivotNearOrAboveHoldPosition())
 										.onlyWhile(() -> !getPivotNearOrAboveHoldPosition())),
-						MotionPlanner.safePivotAndElevatorToPosition(Pivot.QUICK_L4_CORAL_HOLD, Elevator.L4_SCORE)
+						MotionPlanner.safePivotAndElevatorToPosition(Pivot.CORAL_HOLD, Elevator.L4_SCORE)
 								.until(() -> Elevator.mInstance
 										.getPosition()
 										.gte(ElevatorConstants.converter.toAngle(

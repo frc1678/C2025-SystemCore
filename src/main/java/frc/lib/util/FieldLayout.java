@@ -285,6 +285,7 @@ public class FieldLayout {
 		L3,
 		L3_ALGAE,
 		L4,
+		L4_QUICK,
 		ALGAE_READY,
 		PROCESSOR_ALGAE,
 		NET

@@ -22,18 +22,18 @@ public class DetectionILKAB extends AutoModeBase {
 		Superstructure s = Superstructure.mInstance;
 		Detection d = Detection.mInstance;
 
-		AutoTrajectory rightStartToI = trajectory("rightStartToI");
+		AutoTrajectory rightStartToJ = trajectory("rightStartToJ");
 
 		prepRoutine(
 				AutoHelpers.resetPoseIfWithoutEstimate(
-						rightStartToI.getInitialPose().get()),
-				rightStartToI
+						rightStartToJ.getInitialPose().get()),
+				rightStartToJ
 						.cmd()
 						.alongWith(d.setPipelineCmd(DetectionConstants.kAutoPipeline))
-						.andThen(autoScoreWithPrepWithoutCoralHold(Branch.I, Level.L4)),
-				intakeAndScoreGroundCoral("iToDetection", Branch.L, Level.L4, false),
-				intakeAndScoreGroundCoral("lToDetection", Branch.K, Level.L4, false),
-				intakeAndScoreGroundCoral("kToDetection", Branch.A, Level.L4, true),
+						.andThen(autoScoreWithPrepWithoutCoralHold(Branch.J, Level.L4)),
+				intakeAndScoreGroundCoral("iToDetection", Branch.L, Level.L4_QUICK, false),
+				intakeAndScoreGroundCoral("lToDetection", Branch.K, Level.L4_QUICK, false),
+				intakeAndScoreGroundCoral("kToDetection", Branch.A, Level.L4_QUICK, true),
 				intakeAndScoreMark("aToMidMark", Branch.B, Level.L4, false));
 	}
 }

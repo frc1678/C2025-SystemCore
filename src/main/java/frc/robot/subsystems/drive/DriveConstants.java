@@ -389,6 +389,7 @@ public class DriveConstants {
 					PROCESSOR_ALGAE -> mAutoAlignTranslationController; // Not actuallty tippy so just return normal
 				// controller
 			case L4 -> mAutoAlignTippyTranslationController; // Elevator is high so use tippy controller
+			case L4_QUICK -> mAutoAlignTippyTranslationController;
 			case NET -> mAutoAlignVeryTippyTranslationController;
 			default -> null;
 		};
@@ -404,6 +405,7 @@ public class DriveConstants {
 					PROCESSOR_ALGAE -> mAutoAlignHeadingController; // Not actuallty tippy so just return normal
 				// controller
 			case L4 -> mAutoAlignTippyHeadingController; // Elevator is high so use tippy controller
+			case L4_QUICK -> mAutoAlignTippyHeadingController; // Elevator is high so use tippy controller
 			case NET -> mAutoAlignVeryTippyHeadingController;
 			default -> null;
 		};
@@ -415,6 +417,7 @@ public class DriveConstants {
 			case L2 -> distanceToStartSlowingL2;
 			case L3 -> distanceToStartSlowingL3;
 			case L4 -> distanceToStartSlowingL4;
+			case L4_QUICK -> distanceToStartSlowingL4;
 			case L2_ALGAE -> distanceToStartSlowingL2Algae;
 			case L3_ALGAE -> distanceToStartSlowingL3Algae;
 			case PROCESSOR_ALGAE -> distanceToStartSlowingProcessorAlgae;
@@ -429,6 +432,7 @@ public class DriveConstants {
 			case L2 -> distanceToRaiseElevatorL2;
 			case L3 -> distanceToRaiseElevatorL3;
 			case L4 -> distanceToRaiseElevatorL4;
+			case L4_QUICK -> distanceToRaiseElevatorL4;
 			case L2_ALGAE -> distanceToRaiseElevatorL2Algae;
 			case L3_ALGAE -> distanceToRaiseElevatorL3Algae;
 			case PROCESSOR_ALGAE -> distanceToRaiseElevatorProcessorAlgae;
@@ -441,7 +445,7 @@ public class DriveConstants {
 		return switch (level) {
 			case L1, L2, L2_ALGAE, PROCESSOR_ALGAE -> kMaxSpeed.times(
 					1.1); // Not actuallty tippy so just return normal controller
-			case L4, L3, L3_ALGAE -> kMaxSpeedTippy.times(1.1); // Elevator is high so use tippy controller
+			case L4, L3, L3_ALGAE, L4_QUICK -> kMaxSpeedTippy.times(1.1); // Elevator is high so use tippy controller
 			case NET -> kMaxSpeedVeryTippy.times(1.1);
 			default -> null;
 		};

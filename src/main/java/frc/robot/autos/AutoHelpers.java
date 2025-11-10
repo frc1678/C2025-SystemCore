@@ -72,9 +72,21 @@ public class AutoHelpers {
 					case L2 -> s.L2ScoreInAuto();
 					case L3 -> s.L3ScoreInAuto();
 					case L4 -> s.L4ScoreInAuto();
+					case L4_QUICK -> s.QuickL4ScoreInAuto();
 					default -> s.L4ScoreInAuto();
 				};
 		return scoreCommand.asProxy();
+	}
+
+	public static Command getCoralStowForLevel(Level level) {
+		Superstructure s = Superstructure.mInstance;
+		Command holdCommand =
+				switch (level) {
+					case L2, L3, L4 -> s.stowCoralHold();
+					case L4_QUICK -> s.quickStowCoralHold();
+					default -> s.stowCoralHold();
+				};
+		return holdCommand.asProxy();
 	}
 
 	public static Command resetPoseIfWithoutEstimate(Pose2d pose) {
