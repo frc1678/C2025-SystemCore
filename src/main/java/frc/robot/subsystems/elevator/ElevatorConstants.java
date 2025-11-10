@@ -67,7 +67,7 @@ public class ElevatorConstants {
 
 	public static final Distance kStowPosition = Units.Inches.of(0.0);
 
-	public static final Distance kEpsilonThreshold = Units.Inches.of(1.0);
+	public static final Distance kEpsilonThreshold = Units.Inches.of(1.5);
 
 	public static final Distance kElevatorHighThreshold = kCoralHoldPosition.plus(kEpsilonThreshold);
 
