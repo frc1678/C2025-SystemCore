@@ -396,18 +396,6 @@ public class ControlBoard extends SubsystemBase {
 				.onFalse(Elevator.mInstance
 						.setpointCommand(Elevator.HOLD_UP)
 						.andThen(() -> Elevator.mInstance.useSoftLimits(true)));
-		// operator.rightTrigger(0.1)
-		// 		.onTrue(Elevator.mInstance
-		// 				.setpointCommand(Elevator.JOG_DOWN)
-		// 				.andThen(() -> Elevator.mInstance.useSoftLimits(false)))
-		// 		.onFalse(Elevator.mInstance
-		// 				.setpointCommand(Elevator.HOLD_UP)
-		// 				.andThen(() -> Elevator.mInstance.useSoftLimits(true)));
-
-		// operator.pov(POVDirection.Up).onTrue(ClimberRollers.mInstance.setpointCommand(ClimberRollers.INTAKE));
-
-		// operator.pov(POVDirection.Down).onTrue(ClimberRollers.mInstance.setpointCommand(ClimberRollers.IDLE));
-
 		operator.leftBumper()
 				.onTrue(new InstantCommand(() -> Pivot.mInstance.setCurrentPosition(
 								Pivot.mInstance.directCancoder.getPosition().getValue()))

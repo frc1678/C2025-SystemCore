@@ -8,6 +8,7 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.io.BeamBreakIO;
+import frc.lib.io.BeamBreakIOCANdi;
 import frc.lib.io.BeamBreakIODigitalIn;
 import frc.lib.io.BeamBreakIOSim;
 import frc.lib.util.FieldLayout.Level;
@@ -23,15 +24,39 @@ import frc.robot.subsystems.pivot.Pivot;
 
 import java.util.function.BooleanSupplier;
 
+import com.ctre.phoenix6.configs.CANdiConfiguration;
+import com.ctre.phoenix6.hardware.CANdi;
+import com.ctre.phoenix6.signals.S1CloseStateValue;
+import com.ctre.phoenix6.signals.S1FloatStateValue;
+import com.ctre.phoenix6.signals.S2CloseStateValue;
+import com.ctre.phoenix6.signals.S2FloatStateValue;
+
 public final class SuperstructureConstants {
 	public static class BeamBreakConstants {
+		public static final CANdi mCandi = getEndeffectorCandi(); 
+
+		public static CANdi getEndeffectorCandi() {
+			CANdi candi = new CANdi(Ports.CANDI.id, Ports.CANDI.bus); 
+			
+			CANdiConfiguration candiConfiguration = new CANdiConfiguration(); 
+			candiConfiguration.DigitalInputs.S1CloseState = S1CloseStateValue.CloseWhenNotHigh;
+			candiConfiguration.DigitalInputs.S1FloatState = S1FloatStateValue.PullLow;
+			candiConfiguration.DigitalInputs.S2CloseState = S2CloseStateValue.CloseWhenNotHigh;
+			candiConfiguration.DigitalInputs.S2FloatState = S2FloatStateValue.PullLow;
+
+			candi.getConfigurator().apply(candiConfiguration); 
+			
+			return candi; 
+
+		}
 		public static BeamBreakIO getEndEffectorCoralBeamBreak() {
 			if (Robot.isReal()) {
 				try {
-					return new BeamBreakIODigitalIn(
-							Ports.END_EFFECTOR_CORAL_BREAMBREAK.id,
+					return new BeamBreakIOCANdi(
+							1,
 							SuperstructureConstants.kEndEffectorCoralDebounce,
-							"Coral End Effector Break");
+							"Coral End Effector Break", 
+							mCandi);
 				} catch (Exception e) {
 					SmartDashboard.putString("End Effector Beam Break", "Failed");
 					return new BeamBreakIOSim(
@@ -60,10 +85,11 @@ public final class SuperstructureConstants {
 		public static BeamBreakIO getEndEffectorAlgaeBeamBreak() {
 			if (Robot.isReal()) {
 				try {
-					return new BeamBreakIODigitalIn(
-							Ports.END_EFFECTOR_ALGAE_BEAMBREAK.id,
+					return new BeamBreakIOCANdi(
+							2, 
 							SuperstructureConstants.kEndEffectorAlgaeDebounce,
-							"Algae End Effector Break");
+							"Algae End Effector Break", 
+							mCandi);
 				} catch (Exception e) {
 					SmartDashboard.putString("End Effector Beam Break", "Failed");
 					return new BeamBreakIOSim(
