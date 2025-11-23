@@ -51,6 +51,6 @@ public class BeamBreakIOCANdi extends BeamBreakIO {
 
     @Override
     public boolean get() {
-        return digitalInputChannel == 1 ? getSignalInput1() : getSignalInput1();
+        return digitalInputChannel == 1 ? getSignalInput1() : getSignalInput2();
     } 
 }

@@ -16,7 +16,7 @@ public enum Ports {
 	PIVOT(16, "canivore1"),
 	CLIMBER(17, "canivore1"),
 	CLIMBER_ROLLERS(18, "canivore1"),
-	CANDLE(21, "canivore1"),
+	CANDLE(23, "canivore1"),
 
 	// END_EFFECTOR_CORAL_BREAMBREAK(RobotConstants.isComp ? 1 : 5, "RioDigitalIn"),
 	// END_EFFECTOR_ALGAE_BEAMBREAK(RobotConstants.isComp ? 0 : 0, "RioDigitalIn"),
