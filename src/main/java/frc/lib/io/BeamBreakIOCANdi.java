@@ -12,10 +12,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class BeamBreakIOCANdi extends BeamBreakIO {
 	private final CANdi mCANdi;
-    private final int digitalInputChannel; 
+    private final boolean isChannelOne; 
 
-	public static BeamBreakIOCANdi makeInverted(int channel, Time debounce, String name, CANdi candi) {
-		return new BeamBreakIOCANdi(channel, debounce, name, candi) {
+	public static BeamBreakIOCANdi makeInverted(boolean isChannelOne, Time debounce, String name, CANdi candi) {
+		return new BeamBreakIOCANdi(isChannelOne, debounce, name, candi) {
 			@Override
 			public boolean get() {
 				return !super.get();
@@ -23,13 +23,11 @@ public class BeamBreakIOCANdi extends BeamBreakIO {
 		};
 	}
 
-	public BeamBreakIOCANdi(int channel, Time debounce, String name, CANdi candi) {
+	public BeamBreakIOCANdi(boolean isChannelOne, Time debounce, String name, CANdi candi) {
 		super(debounce, name);
 		this.mCANdi = candi; 
 
-        assert channel == 1 || channel == 2; 
-
-        this.digitalInputChannel = channel; 
+        this.isChannelOne = isChannelOne; 
         
         CANdiConfiguration candiConfiguration = new CANdiConfiguration(); 
 
@@ -51,6 +49,6 @@ public class BeamBreakIOCANdi extends BeamBreakIO {
 
     @Override
     public boolean get() {
-        return digitalInputChannel == 1 ? getSignalInput1() : getSignalInput2();
+        return isChannelOne ? getSignalInput1() : getSignalInput2();
     } 
 }

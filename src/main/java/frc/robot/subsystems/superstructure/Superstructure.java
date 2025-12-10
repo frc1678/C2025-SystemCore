@@ -1,5 +1,6 @@
 package frc.robot.subsystems.superstructure;
 
+import com.ctre.phoenix6.hardware.CANdi;
 import com.ctre.phoenix6.swerve.SwerveDrivetrain.SwerveDriveState;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -58,8 +59,10 @@ import java.util.function.Supplier;
 public class Superstructure extends SubsystemBase {
 	public static final Superstructure mInstance = new Superstructure();
 
-	public static BeamBreakIO endEffectorCoralBreak = BeamBreakConstants.getEndEffectorCoralBeamBreak();
-	private static BeamBreakIO endEffectorAlgaeBreak = BeamBreakConstants.getEndEffectorAlgaeBeamBreak();
+	public static final CANdi mEECANdi = SuperstructureConstants.BeamBreakConstants.getCANdi(); 
+	public static BeamBreakIO endEffectorCoralBreak = BeamBreakConstants.getEndEffectorCoralBeamBreak(mEECANdi);
+	private static BeamBreakIO endEffectorAlgaeBreak = BeamBreakConstants.getEndEffectorAlgaeBeamBreak(mEECANdi); 
+
 	public static BeamBreakIO endEffectorVelocityDip = BeamBreakConstants.getEndEffectorVelocityDip();
 	public static BeamBreakIO coralRollersCurrentSpike = BeamBreakConstants.getCoralRollersCurrentSpike();
 	public static BeamBreakIO coralRollersVelocityDip = BeamBreakConstants.getCoralRollersVelocityDip();
@@ -67,6 +70,8 @@ public class Superstructure extends SubsystemBase {
 	public static BeamBreakIO indexerBreak = BeamBreakConstants.getIndexerBeamBreak();
 	public static BeamBreakIO pivotVelocityLow = BeamBreakConstants.getPivotVelocityLow();
 	public static BeamBreakIO closeCoral = BeamBreakConstants.getCoralClose();
+
+	
 
 	public static BeamBreakIO allAlgae = new BeamBreakIOSim(
 			() -> endEffectorVelocityDip.getDebounced() || endEffectorAlgaeBreak.getDebounced(),

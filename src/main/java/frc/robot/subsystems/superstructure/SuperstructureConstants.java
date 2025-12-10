@@ -33,9 +33,8 @@ import com.ctre.phoenix6.signals.S2FloatStateValue;
 
 public final class SuperstructureConstants {
 	public static class BeamBreakConstants {
-		public static final CANdi mCandi = getEndeffectorCandi(); 
 
-		public static CANdi getEndeffectorCandi() {
+		public static CANdi getCANdi() {
 			CANdi candi = new CANdi(Ports.CANDI.id, Ports.CANDI.bus); 
 			
 			CANdiConfiguration candiConfiguration = new CANdiConfiguration(); 
@@ -46,17 +45,17 @@ public final class SuperstructureConstants {
 
 			candi.getConfigurator().apply(candiConfiguration); 
 			
-			return candi; 
-
+			return candi;
 		}
-		public static BeamBreakIO getEndEffectorCoralBeamBreak() {
+
+		public static BeamBreakIO getEndEffectorCoralBeamBreak(CANdi candi) {
 			if (Robot.isReal()) {
 				try {
 					return BeamBreakIOCANdi.makeInverted(
-							1,
+							true,
 							SuperstructureConstants.kEndEffectorCoralDebounce,
 							"Coral End Effector Break", 
-							mCandi);
+							candi);
 				} catch (Exception e) {
 					SmartDashboard.putString("End Effector Beam Break", "Failed");
 					return new BeamBreakIOSim(
@@ -82,14 +81,15 @@ public final class SuperstructureConstants {
 			}
 		}
 
-		public static BeamBreakIO getEndEffectorAlgaeBeamBreak() {
+		public static BeamBreakIO getEndEffectorAlgaeBeamBreak(CANdi candi) {
 			if (Robot.isReal()) {
 				try {
 					return BeamBreakIOCANdi.makeInverted(
-							2, 
+							false,
 							SuperstructureConstants.kEndEffectorAlgaeDebounce,
 							"Algae End Effector Break", 
-							mCandi);
+							candi
+					);
 				} catch (Exception e) {
 					SmartDashboard.putString("End Effector Beam Break", "Failed");
 					return new BeamBreakIOSim(
