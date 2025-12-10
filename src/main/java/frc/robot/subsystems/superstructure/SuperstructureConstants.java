@@ -52,7 +52,7 @@ public final class SuperstructureConstants {
 		public static BeamBreakIO getEndEffectorCoralBeamBreak() {
 			if (Robot.isReal()) {
 				try {
-					return new BeamBreakIOCANdi(
+					return BeamBreakIOCANdi.makeInverted(
 							1,
 							SuperstructureConstants.kEndEffectorCoralDebounce,
 							"Coral End Effector Break", 
@@ -85,7 +85,7 @@ public final class SuperstructureConstants {
 		public static BeamBreakIO getEndEffectorAlgaeBeamBreak() {
 			if (Robot.isReal()) {
 				try {
-					return new BeamBreakIOCANdi(
+					return BeamBreakIOCANdi.makeInverted(
 							2, 
 							SuperstructureConstants.kEndEffectorAlgaeDebounce,
 							"Algae End Effector Break", 
