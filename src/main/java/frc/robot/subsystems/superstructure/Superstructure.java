@@ -25,6 +25,7 @@ import frc.lib.util.FieldLayout.Branch;
 import frc.lib.util.FieldLayout.Branch.Face;
 import frc.lib.util.FieldLayout.Level;
 import frc.lib.util.Util;
+import frc.robot.Ports;
 import frc.robot.RobotConstants;
 import frc.robot.controlboard.ControlBoard;
 import frc.robot.planners.MotionPlanner;
@@ -59,7 +60,8 @@ import java.util.function.Supplier;
 public class Superstructure extends SubsystemBase {
 	public static final Superstructure mInstance = new Superstructure();
 
-	public static final CANdi mEECANdi = SuperstructureConstants.BeamBreakConstants.getCANdi(); 
+	public static final CANdi mEECANdi = new CANdi(Ports.CANDI.id, Ports.CANDI.bus);
+
 	public static BeamBreakIO endEffectorCoralBreak = BeamBreakConstants.getEndEffectorCoralBeamBreak(mEECANdi);
 	private static BeamBreakIO endEffectorAlgaeBreak = BeamBreakConstants.getEndEffectorAlgaeBeamBreak(mEECANdi); 
 

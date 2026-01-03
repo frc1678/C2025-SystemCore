@@ -33,21 +33,6 @@ import com.ctre.phoenix6.signals.S2FloatStateValue;
 
 public final class SuperstructureConstants {
 	public static class BeamBreakConstants {
-
-		public static CANdi getCANdi() {
-			CANdi candi = new CANdi(Ports.CANDI.id, Ports.CANDI.bus); 
-			
-			CANdiConfiguration candiConfiguration = new CANdiConfiguration(); 
-			candiConfiguration.DigitalInputs.S1CloseState = S1CloseStateValue.CloseWhenNotHigh;
-			candiConfiguration.DigitalInputs.S1FloatState = S1FloatStateValue.PullLow;
-			candiConfiguration.DigitalInputs.S2CloseState = S2CloseStateValue.CloseWhenNotHigh;
-			candiConfiguration.DigitalInputs.S2FloatState = S2FloatStateValue.PullLow;
-
-			candi.getConfigurator().apply(candiConfiguration); 
-			
-			return candi;
-		}
-
 		public static BeamBreakIO getEndEffectorCoralBeamBreak(CANdi candi) {
 			if (Robot.isReal()) {
 				try {
