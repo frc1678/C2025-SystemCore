@@ -8,7 +8,6 @@ import com.ctre.phoenix6.signals.S2CloseStateValue;
 import com.ctre.phoenix6.signals.S2FloatStateValue;
 
 import edu.wpi.first.units.measure.Time;
-import edu.wpi.first.wpilibj.DigitalInput;
 
 public class BeamBreakIOCANdi extends BeamBreakIO {
 	private final CANdi mCANdi;

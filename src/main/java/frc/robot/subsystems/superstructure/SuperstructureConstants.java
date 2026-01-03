@@ -23,13 +23,7 @@ import frc.robot.subsystems.endeffector.EndEffector;
 import frc.robot.subsystems.pivot.Pivot;
 
 import java.util.function.BooleanSupplier;
-
-import com.ctre.phoenix6.configs.CANdiConfiguration;
 import com.ctre.phoenix6.hardware.CANdi;
-import com.ctre.phoenix6.signals.S1CloseStateValue;
-import com.ctre.phoenix6.signals.S1FloatStateValue;
-import com.ctre.phoenix6.signals.S2CloseStateValue;
-import com.ctre.phoenix6.signals.S2FloatStateValue;
 
 public final class SuperstructureConstants {
 	public static class BeamBreakConstants {
