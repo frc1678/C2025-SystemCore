@@ -407,6 +407,7 @@ public class ControlBoard extends SubsystemBase {
 		// operator.pov(POVDirection.Up).onTrue(ClimberRollers.mInstance.setpointCommand(ClimberRollers.INTAKE));
 
 		// operator.pov(POVDirection.Down).onTrue(ClimberRollers.mInstance.setpointCommand(ClimberRollers.IDLE));
+		
 		operator.leftBumper()
 				.onTrue(new InstantCommand(() -> Pivot.mInstance.setCurrentPosition(
 								Pivot.mInstance.directCancoder.getPosition().getValue()))
