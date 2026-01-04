@@ -16,11 +16,14 @@ public enum Ports {
 	PIVOT(16, "canivore1"),
 	CLIMBER(17, "canivore1"),
 	CLIMBER_ROLLERS(18, "canivore1"),
-	CANDLE(21, "canivore1"),
+	CANDLE(23, "canivore1"),
 
-	END_EFFECTOR_CORAL_BREAMBREAK(RobotConstants.isComp ? 1 : 5, "RioDigitalIn"),
-	END_EFFECTOR_ALGAE_BEAMBREAK(RobotConstants.isComp ? 0 : 0, "RioDigitalIn"),
+	// END_EFFECTOR_CORAL_BREAMBREAK(RobotConstants.isComp ? 1 : 5, "RioDigitalIn"),
+	// END_EFFECTOR_ALGAE_BEAMBREAK(RobotConstants.isComp ? 0 : 0, "RioDigitalIn"),
+	CANDI(21,"canivore1"), 
 	INDEXER_BEAMBREAK(RobotConstants.isComp ? 8 : 4, "RioDigitalIn"),
+	EE_CORAL_BEAMBREAK(1, "CANdi"), //Slot 1 or 2 on the CANdi
+	EE_ALGAE_BEAMBREAK(2, "CANdi"),
 
 	ENCODER_41T(4, "canivore1"),
 	ENCODER_39T(5, "canivore1"),

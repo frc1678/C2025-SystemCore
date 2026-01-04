@@ -8,6 +8,7 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.io.BeamBreakIO;
+import frc.lib.io.BeamBreakIOCANdi;
 import frc.lib.io.BeamBreakIODigitalIn;
 import frc.lib.io.BeamBreakIOSim;
 import frc.lib.util.FieldLayout.Level;
@@ -22,16 +23,18 @@ import frc.robot.subsystems.endeffector.EndEffector;
 import frc.robot.subsystems.pivot.Pivot;
 
 import java.util.function.BooleanSupplier;
+import com.ctre.phoenix6.hardware.CANdi;
 
 public final class SuperstructureConstants {
 	public static class BeamBreakConstants {
-		public static BeamBreakIO getEndEffectorCoralBeamBreak() {
+		public static BeamBreakIO getEndEffectorCoralBeamBreak(CANdi candi) {
 			if (Robot.isReal()) {
 				try {
-					return new BeamBreakIODigitalIn(
-							Ports.END_EFFECTOR_CORAL_BREAMBREAK.id,
+					return BeamBreakIOCANdi.makeInverted(
+							Ports.EE_CORAL_BEAMBREAK.id,
 							SuperstructureConstants.kEndEffectorCoralDebounce,
-							"Coral End Effector Break");
+							"Coral End Effector Break", 
+							candi);
 				} catch (Exception e) {
 					SmartDashboard.putString("End Effector Beam Break", "Failed");
 					return new BeamBreakIOSim(
@@ -57,13 +60,15 @@ public final class SuperstructureConstants {
 			}
 		}
 
-		public static BeamBreakIO getEndEffectorAlgaeBeamBreak() {
+		public static BeamBreakIO getEndEffectorAlgaeBeamBreak(CANdi candi) {
 			if (Robot.isReal()) {
 				try {
-					return new BeamBreakIODigitalIn(
-							Ports.END_EFFECTOR_ALGAE_BEAMBREAK.id,
+					return BeamBreakIOCANdi.makeInverted(
+							Ports.EE_ALGAE_BEAMBREAK.id,
 							SuperstructureConstants.kEndEffectorAlgaeDebounce,
-							"Algae End Effector Break");
+							"Algae End Effector Break", 
+							candi
+					);
 				} catch (Exception e) {
 					SmartDashboard.putString("End Effector Beam Break", "Failed");
 					return new BeamBreakIOSim(
