@@ -11,10 +11,10 @@ import edu.wpi.first.units.measure.Time;
 
 public class BeamBreakIOCANdi extends BeamBreakIO {
 	private final CANdi mCANdi;
-    private final boolean isChannelOne; 
+    private final int channel; 
 
-	public static BeamBreakIOCANdi makeInverted(boolean isChannelOne, Time debounce, String name, CANdi candi) {
-		return new BeamBreakIOCANdi(isChannelOne, debounce, name, candi) {
+	public static BeamBreakIOCANdi makeInverted(int channel, Time debounce, String name, CANdi candi) {
+		return new BeamBreakIOCANdi(channel, debounce, name, candi) {
 			@Override
 			public boolean get() {
 				return !super.get();
@@ -22,11 +22,14 @@ public class BeamBreakIOCANdi extends BeamBreakIO {
 		};
 	}
 
-	public BeamBreakIOCANdi(boolean isChannelOne, Time debounce, String name, CANdi candi) {
+	public BeamBreakIOCANdi(int channel, Time debounce, String name, CANdi candi) {
 		super(debounce, name);
+
+        assert channel == 1 || channel == 2; //Check to make sure that the channel # is valid
+
 		this.mCANdi = candi; 
 
-        this.isChannelOne = isChannelOne; 
+        this.channel = channel; 
         
         CANdiConfiguration candiConfiguration = new CANdiConfiguration(); 
 
@@ -48,6 +51,6 @@ public class BeamBreakIOCANdi extends BeamBreakIO {
 
     @Override
     public boolean get() {
-        return isChannelOne ? getSignalInput1() : getSignalInput2();
+        return channel == 1 ? getSignalInput1() : getSignalInput2();
     } 
 }
