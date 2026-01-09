@@ -85,7 +85,7 @@ public class FollowSyncedPIDToPose extends PIDToPoseCommand {
 	public boolean slowEnoughToRaiseElevator() {
 		return Math.hypot(
 						Drive.mInstance.getState().Speeds.vx,
-						Drive.mInstance.getState().Speeds.vx)
+						Drive.mInstance.getState().Speeds.vy)
 				< velToRaiseElevator.in(Units.MetersPerSecond);
 	}
 
