@@ -363,9 +363,9 @@ public class Util {
 		}
 
 		public Pose2dTimeInterpolable(Trajectory trajwithTan, Rotation2d startHeading, Rotation2d endHeading) {
-			double totalTimeSecpnods = trajwithTan.getTotalTime();
+			double totalTimeSeconds = trajwithTan.getTotalTime();
 			for (State state : trajwithTan.getStates()) {
-				Rotation2d poseRotation = startHeading.interpolate(endHeading, state.time / totalTimeSecpnods);
+				Rotation2d poseRotation = startHeading.interpolate(endHeading, state.time / totalTimeSeconds);
 				poseList.add(new Pair<>(
 						new Pose2d(state.pose.getTranslation(), poseRotation),
 						Units.Seconds.of(state.time)));

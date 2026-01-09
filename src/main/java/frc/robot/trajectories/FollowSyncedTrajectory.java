@@ -67,7 +67,7 @@ public class FollowSyncedTrajectory extends FollowTrajectoryCommand {
 	public boolean slowEnoughToRaiseElevator() {
 		return Math.hypot(
 						Drive.mInstance.getState().Speeds.vx,
-						Drive.mInstance.getState().Speeds.vx)
+						Drive.mInstance.getState().Speeds.vy)
 				< DriveConstants.kMaxSpeedTippy.times(1.1).in(Units.MetersPerSecond);
 	}
 
